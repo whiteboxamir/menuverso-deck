@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menuverso — Presentación para Restaurantes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #ffffff;
+            --bg-warm: #faf8f6;
+            --bg-blush: #fdf0ed;
+            --bg-blush-subtle: #fdf5f3;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --text-muted: #888888;
+            --brand-red: #c0392b;
+            --brand-red-deep: #a93226;
+            --brand-red-light: #e8d5d2;
+            --brand-pink: #f5e0dc;
+            --brand-pink-card: #faeae7;
+            --border-light: #eaeaea;
+            --border-blush: #f0d5cf;
+            --font-header: 'Inter', -apple-system, sans-serif;
+            --font-copy: 'Lora', Georgia, serif;
+            --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-card-hover: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            overflow-y: auto;
+        }
+
+        body {
+            font-family: var(--font-header);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ─── Slide System ─── */
+        .slide {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 80px;
+        }
+
+        /* ─── Typography ─── */
+        .eyebrow {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--brand-red);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        h1 {
+            font-family: var(--font-header);
+            font-size: 3.2rem;
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            color: var(--text-primary);
+        }
+
+        h2 {
+            font-family: var(--font-header);
+            font-size: 2.4rem;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+        }
+
+        h3 {
+            font-family: var(--font-header);
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+
+        .body-text {
+            font-family: var(--font-copy);
+            font-size: 1.1rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-width: 520px;
+        }
+
+        .body-text-sans {
+            font-family: var(--font-header);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        /* ─── Navigation ─── */
+        .nav-progress {
+            position: fixed;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--brand-red);
+            transform: scale(1.4);
+        }
+
+        .nav-dot:hover {
+            background: var(--brand-red-light);
+            transform: scale(1.3);
+        }
+
+        /* ─── Slide Counter ─── */
+        .slide-counter {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            font-family: var(--font-header);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            z-index: 100;
+        }
+
+        /* ─── SLIDE 1: Cover ─── */
+        .slide-cover {
+            background: var(--bg-warm);
+        }
+
+        .cover-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .cover-text .logo-mark {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-red);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .logo-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .cover-text h1 {
+            margin-bottom: 24px;
+        }
+
+        .cover-text .body-text {
+            margin-bottom: 32px;
+        }
+
+        .cover-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--brand-red);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .cover-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            background: var(--bg-base);
+            border-radius: 36px;
+            border: 3px solid #e0e0e0;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-header {
+            padding: 20px 20px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .phone-header-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .phone-map {
+            flex: 1;
+            background: #f0ece4;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-road {
+            position: absolute;
+            background: #e8e2d8;
+        }
+
+        .map-road-h {
+            height: 3px;
+            width: 100%;
+        }
+
+        .map-road-v {
+            width: 3px;
+            height: 100%;
+        }
+
+        .map-pin {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: var(--brand-red);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-pin::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        .phone-card {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 16px 20px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+        }
+
+        .phone-card-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .phone-card-type {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .phone-card-offer {
+            background: var(--bg-blush);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--brand-red);
+            display: inline-block;
+        }
+
+        .phone-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 20px 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .phone-nav-item {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .phone-nav-item.active {
+            color: var(--brand-red);
+        }
+
+        .phone-nav-icon {
+            width: 20px;
+            height: 20px;
+            margin: 0 auto 4px;
+            border-radius: 4px;
+            background: currentColor;
+            opacity: 0.3;
+        }
+
+        .phone-nav-item.active .phone-nav-icon {
+            opacity: 0.7;
+        }
+
+        /* Floating elements around phone */
+        .float-element {
+            position: absolute;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+            background: white;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .float-1 {
+            top: 40px;
+            right: -20px;
+            padding: 10px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--brand-red);
+            animation-delay: 0s;
+        }
+
+        .float-2 {
+            bottom: 80px;
+            left: -30px;
+            padding: 10px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            animation-delay: 2s;
+        }
+
+        .float-3 {
+            top: 160px;
+            left: -40px;
+            padding: 8px 14px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--brand-red);
+            background: var(--bg-blush);
+            animation-delay: 4s;
+        }
+
+        /* ─── SLIDE 2: Value Proposition ─── */
+        .slide-value {
+            background: var(--bg-base);
+        }
+
+        .value-layout {
+            text-align: center;
+        }
+
+        .value-layout h2 {
+            margin-bottom: 16px;
+        }
+
+        .value-layout .body-text {
+            margin: 0 auto 48px;
+            text-align: center;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .value-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-light);
+            border-left: 3px solid var(--brand-red);
+            border-radius: var(--radius-sm);
+            padding: 28px 24px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .value-card .icon-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-blush);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+        }
+
+        .value-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .value-card p {
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+        }
+
+        /* ─── SLIDE 3: Benefits Deep Dive ─── */
+        .slide-benefits {
+            background: var(--bg-warm);
+        }
+
+        .benefits-header {
+            margin-bottom: 48px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .benefit-card {
+            background: var(--bg-base);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-3px);
+        }
+
+        .benefit-card-img {
+            height: 180px;
+            background: var(--bg-blush-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .benefit-card-img .illustration {
+            font-size: 3.5rem;
+            opacity: 0.9;
+        }
+
+        .benefit-card-body {
+            padding: 24px;
+        }
+
+        .benefit-card-body h3 {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--brand-red);
+            display: inline-block;
+        }
+
+        .benefit-card-body p {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ─── SLIDE 4: Offer Types ─── */
+        .slide-offers {
+            background: var(--bg-base);
+        }
+
+        .offers-header {
+            margin-bottom: 40px;
+        }
+
+        .offers-header .body-text {
+            margin-top: 12px;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .offer-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .offer-card:hover {
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .offer-card.popular::before {
+            content: '⭐ Más popular';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--brand-red);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 100px;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .offer-card-header {
+            background: var(--brand-pink-card);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .offer-card-body {
+            padding: 20px 24px;
+        }
+
+        .offer-card-body h3 {
+            margin-bottom: 6px;
+        }
+
+        .offer-card-body p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ─── SLIDE 5: Real Examples ─── */
+        .slide-examples {
+            background: var(--bg-warm);
+        }
+
+        .examples-header {
+            margin-bottom: 36px;
+        }
+
+        .examples-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .examples-table thead {
+            border-bottom: 2px solid var(--brand-red);
+        }
+
+        .examples-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .examples-table td {
+            padding: 14px 16px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            vertical-align: top;
+        }
+
+        .examples-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.2s ease;
+        }
+
+        .examples-table tbody tr:nth-child(even) {
+            background: var(--bg-blush-subtle);
+        }
+
+        .examples-table tbody tr:hover {
+            background: var(--bg-blush);
+        }
+
+        .examples-table .offer-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .examples-table .badge {
+            display: inline-block;
+            background: var(--bg-blush);
+            color: var(--brand-red);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* ─── SLIDE 6: Agreement Conditions ─── */
+        .slide-conditions {
+            background: var(--bg-base);
+        }
+
+        .conditions-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .conditions-visual {
+            height: 420px;
+            background: var(--bg-blush-subtle);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .conditions-visual .illustration {
+            font-size: 6rem;
+        }
+
+        .conditions-text h2 {
+            margin-bottom: 12px;
+        }
+
+        .conditions-text-sub {
+            font-family: var(--font-copy);
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .condition-item {
+            background: var(--bg-base);
+            border: 1px solid var(--border-light);
+            border-left: 3px solid var(--brand-red);
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .condition-item:hover {
+            box-shadow: var(--shadow-card);
+        }
+
+        .condition-item h3 {
+            margin-bottom: 6px;
+            font-size: 1.05rem;
+        }
+
+        .condition-item p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        /* ─── SLIDE 7: How It Works (User Side) ─── */
+        .slide-how {
+            background: var(--bg-warm);
+        }
+
+        .how-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .how-header .body-text {
+            margin: 12px auto 0;
+            text-align: center;
+        }
+
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            position: relative;
+        }
+
+        .how-steps::before {
+            content: '';
+            position: absolute;
+            top: 100px;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: var(--border-light);
+            z-index: 0;
+        }
+
+        .how-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            font-family: var(--font-header);
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--brand-red);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .step-phone {
+            width: 160px;
+            height: 280px;
+            background: var(--bg-base);
+            border-radius: 24px;
+            border: 2px solid #e0e0e0;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        .step-phone-screen {
+            flex: 1;
+            background: var(--bg-blush-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .step-phone-bar {
+            padding: 8px;
+            background: white;
+            text-align: center;
+        }
+
+        .step-phone-bar span {
+            display: inline-block;
+            width: 40px;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+        }
+
+        .how-step h3 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .how-step p {
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            max-width: 240px;
+            margin: 0 auto;
+        }
+
+        /* ─── SLIDE 8: Consumer Model ─── */
+        .slide-consumer {
+            background: var(--bg-base);
+        }
+
+        .consumer-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .consumer-visual {
+            height: 400px;
+            background: var(--bg-blush-subtle);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .consumer-visual .illustration {
+            font-size: 5rem;
+        }
+
+        .consumer-text h2 {
+            margin-bottom: 16px;
+        }
+
+        .consumer-text .body-text {
+            margin-bottom: 32px;
+        }
+
+        .price-callout {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .price-callout .price-desde {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .price-callout .price-amount {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--brand-red);
+            letter-spacing: -1px;
+        }
+
+        .price-callout .price-period {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .plans-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .plan-mini-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 18px 16px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .plan-mini-card:hover {
+            box-shadow: var(--shadow-card);
+        }
+
+        .plan-mini-card.best-value {
+            border-color: var(--brand-red);
+        }
+
+        .plan-mini-card.best-value::after {
+            content: 'Mejor valor';
+            position: absolute;
+            top: -10px;
+            right: 12px;
+            background: var(--brand-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .plan-mini-card .plan-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .plan-mini-card .plan-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .plan-mini-card .plan-detail {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ─── SLIDE 9: Social Proof / Traction ─── */
+        .slide-traction {
+            background: var(--bg-warm);
+        }
+
+        .traction-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .traction-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 32px 16px;
+            background: var(--bg-base);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+        }
+
+        .stat-number {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--brand-red);
+            letter-spacing: -1px;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .traction-quote {
+            background: var(--bg-base);
+            border-radius: var(--radius);
+            padding: 36px 40px;
+            border-left: 4px solid var(--brand-red);
+            box-shadow: var(--shadow-card);
+        }
+
+        .traction-quote blockquote {
+            font-family: var(--font-copy);
+            font-size: 1.15rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .traction-quote cite {
+            font-family: var(--font-header);
+            font-size: 0.85rem;
+            font-style: normal;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .traction-quote .cite-role {
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        /* ─── SLIDE 10: CTA ─── */
+        .slide-cta {
+            background: var(--bg-blush-subtle);
+        }
+
+        .cta-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .cta-visual {
+            height: 480px;
+            background: var(--brand-pink-card);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .cta-visual .illustration {
+            font-size: 6rem;
+        }
+
+        .cta-text h2 {
+            margin-bottom: 16px;
+        }
+
+        .cta-text .body-text {
+            margin-bottom: 40px;
+        }
+
+        .cta-steps {
+            margin-bottom: 36px;
+        }
+
+        .cta-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .cta-step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--brand-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .cta-step-text h3 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .cta-step-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-contact {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 100px;
+            font-family: var(--font-header);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-btn-primary {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        .cta-btn-primary:hover {
+            background: var(--brand-red-deep);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(192, 57, 43, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background: var(--bg-base);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .cta-btn-secondary:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+
+        .cta-email {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .cta-email a {
+            color: var(--brand-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ─── Section Divider ─── */
+        .slide-divider {
+            background: var(--bg-base);
+        }
+
+        .divider-content {
+            text-align: center;
+        }
+
+        .divider-content .eyebrow {
+            font-size: 0.85rem;
+        }
+
+        .divider-content h2 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+        }
+
+        .divider-line {
+            width: 60px;
+            height: 3px;
+            background: var(--brand-red);
+            margin: 24px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 900px) {
+            .slide-inner {
+                padding: 40px 32px;
+            }
+
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+
+            .cover-layout,
+            .conditions-layout,
+            .consumer-layout,
+            .cta-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .value-grid,
+            .benefits-grid,
+            .how-steps {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .traction-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-progress { display: none; }
+
+            .cover-visual { order: -1; }
+
+            .phone-mockup {
+                width: 200px;
+                height: 400px;
+            }
+
+            .how-steps::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-progress" id="navProgress"></nav>
+    <div class="slide-counter" id="slideCounter">01 / 10</div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 1: Cover (Restaurant-First)      -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-cover" id="slide-1">
+        <div class="slide-inner">
+            <div class="cover-layout">
+                <div class="cover-text">
+                    <div class="logo-mark">
+                        <div class="logo-icon">M</div>
+                        <span class="logo-name">Menuverso</span>
+                    </div>
+                    <span class="eyebrow">Para restaurantes, cafeterías y bares</span>
+                    <h1>Más clientes.<br>Sin coste.<br>Sin complicaciones.</h1>
+                    <p class="body-text">
+                        Únete a la plataforma de suscripción gastronómica que conecta a comensales activos con los mejores locales de tu zona.
+                    </p>
+                    <div class="cover-badge">
+                        ✦ Gratis para restaurantes
+                    </div>
+                </div>
+                <div class="cover-visual">
+                    <div class="float-element float-1">🍽️ 2x1 Activo</div>
+                    <div class="float-element float-2">📍 Tu barrio</div>
+                    <div class="float-element float-3">+120 locales</div>
+
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="phone-header">
+                                <span style="font-size:1.2rem;">☰</span>
+                                <span class="phone-header-title">Menuverso</span>
+                                <span style="font-size:1rem;">✦</span>
+                            </div>
+                            <div class="phone-map">
+                                <div class="map-road map-road-h" style="top:35%"></div>
+                                <div class="map-road map-road-h" style="top:65%"></div>
+                                <div class="map-road map-road-v" style="left:30%"></div>
+                                <div class="map-road map-road-v" style="left:70%"></div>
+                                <div class="map-pin" style="top:25%; left:45%"></div>
+                                <div class="map-pin" style="top:50%; left:22%"></div>
+                                <div class="map-pin" style="top:40%; left:68%"></div>
+                                <div class="phone-card">
+                                    <div class="phone-card-name">La Taverna del Born</div>
+                                    <div class="phone-card-type">Mediterráneo · Born, Barcelona</div>
+                                    <div class="phone-card-offer">2x1 Plato Principal</div>
+                                </div>
+                            </div>
+                            <div class="phone-nav">
+                                <div class="phone-nav-item active">
+                                    <div class="phone-nav-icon"></div>
+                                    Inicio
+                                </div>
+                                <div class="phone-nav-item">
+                                    <div class="phone-nav-icon"></div>
+                                    Buscar
+                                </div>
+                                <div class="phone-nav-item">
+                                    <div class="phone-nav-icon"></div>
+                                    Mapa
+                                </div>
+                                <div class="phone-nav-item">
+                                    <div class="phone-nav-icon"></div>
+                                    Perfil
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 2: Value Proposition             -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-value" id="slide-2">
+        <div class="slide-inner">
+            <div class="value-layout">
+                <span class="eyebrow">¿Por qué Menuverso?</span>
+                <h2>Atrae más clientes, sin coste</h2>
+                <p class="body-text">
+                    Tú pones la oferta. Nosotros ponemos los clientes. Así de sencillo.
+                </p>
+                <div class="value-grid">
+                    <div class="value-card">
+                        <div class="icon-circle">👥</div>
+                        <h3>Más clientes</h3>
+                        <p>Conecta con suscriptores hambrientos que ya buscan dónde comer en tu barrio.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="icon-circle">€</div>
+                        <h3>Sin coste</h3>
+                        <p>Unirse a Menuverso es completamente gratuito. Sin comisiones, sin letra pequeña.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="icon-circle">✓</div>
+                        <h3>Sin complicaciones</h3>
+                        <p>Creamos tu perfil con fotos, horarios y ubicación. Tú no tocas nada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 3: Benefits Deep Dive            -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-benefits" id="slide-3">
+        <div class="slide-inner">
+            <div class="benefits-header">
+                <span class="eyebrow">Beneficios para tu negocio</span>
+                <h2>Todo lo que hacemos por ti</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-card-img">
+                        <div class="illustration">📱</div>
+                    </div>
+                    <div class="benefit-card-body">
+                        <h3>Marketing incluido</h3>
+                        <p>Colocamos tu perfil en nuestra app con todos tus datos, website y fotos. Hacemos campañas de marketing y ads en redes sociales.</p>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-card-img">
+                        <div class="illustration">✅</div>
+                    </div>
+                    <div class="benefit-card-body">
+                        <h3>Validación directa</h3>
+                        <p>El usuario validará la oferta directamente en el restaurante antes de pedir. Control total desde tu lado.</p>
+                    </div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-card-img">
+                        <div class="illustration">🛋️</div>
+                    </div>
+                    <div class="benefit-card-body">
+                        <h3>Gestión cero</h3>
+                        <p>Unirse a Menuverso es completamente gratuito y sin gestión técnica complicada. Nos encargamos de todo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 4: Offer Types                   -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-offers" id="slide-4">
+        <div class="slide-inner">
+            <div class="offers-header">
+                <span class="eyebrow">Tipos de oferta</span>
+                <h2>Nos adaptamos a tu negocio</h2>
+                <p class="body-text">Elige formato, duración y modalidad. Nosotros te ayudamos a escoger la que mejor funcione en tu zona.</p>
+            </div>
+            <div class="offers-grid">
+                <div class="offer-card popular">
+                    <div class="offer-card-header">🍽️</div>
+                    <div class="offer-card-body">
+                        <h3>2×1</h3>
+                        <p>Plato principal, hamburguesa o bundle café + postre</p>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-card-header">🎁</div>
+                    <div class="offer-card-body">
+                        <h3>Regalo</h3>
+                        <p>Helado, mochi o cóctel de la casa gratis con pedido</p>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-card-header">💰</div>
+                    <div class="offer-card-body">
+                        <h3>Descuento</h3>
+                        <p>10 € de descuento con pedido mínimo de 35 €</p>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-card-header">📅</div>
+                    <div class="offer-card-body">
+                        <h3>Duración</h3>
+                        <p>Renovación cada 30 o 90 días según el tipo de oferta</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 5: Real Offer Examples           -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-examples" id="slide-5">
+        <div class="slide-inner">
+            <div class="examples-header">
+                <span class="eyebrow">Ejemplos reales</span>
+                <h2>Ofertas que ya funcionan</h2>
+            </div>
+            <table class="examples-table">
+                <thead>
+                    <tr>
+                        <th>Oferta</th>
+                        <th>Condiciones</th>
+                        <th>Modalidad</th>
+                        <th>Renovación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="offer-name">2×1 Plato Principal</td>
+                        <td>El más barato no se cobra. Excluidos menús mediodía, sushi y parrilla</td>
+                        <td><span class="badge">En local</span></td>
+                        <td>90 días</td>
+                    </tr>
+                    <tr>
+                        <td class="offer-name">2×1 Hamburguesa</td>
+                        <td>50% dto en ambas. No acumulable con menús</td>
+                        <td><span class="badge">Para llevar</span></td>
+                        <td>90 días</td>
+                    </tr>
+                    <tr>
+                        <td class="offer-name">2×1 Bundle Café + Postre</td>
+                        <td>50% dto en ambos bundles</td>
+                        <td><span class="badge">En local</span></td>
+                        <td>30 días</td>
+                    </tr>
+                    <tr>
+                        <td class="offer-name">Helado / Mochi Gratis</td>
+                        <td>Con pedido de un plato principal</td>
+                        <td><span class="badge">En local</span></td>
+                        <td>90 días</td>
+                    </tr>
+                    <tr>
+                        <td class="offer-name">10 € de Descuento</td>
+                        <td>Pedido mínimo 35 €. No acumulable con Menú Almuerzo</td>
+                        <td><span class="badge">En local</span></td>
+                        <td>30 días</td>
+                    </tr>
+                    <tr>
+                        <td class="offer-name">Cóctel de la Casa Gratis</td>
+                        <td>Con plato principal. No acumulable con Menú Almuerzo</td>
+                        <td><span class="badge">En local</span></td>
+                        <td>30 días</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 6: Agreement Conditions          -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-conditions" id="slide-6">
+        <div class="slide-inner">
+            <div class="conditions-layout">
+                <div class="conditions-visual">
+                    <div class="illustration">🤝</div>
+                </div>
+                <div class="conditions-text">
+                    <span class="eyebrow">Condiciones del acuerdo</span>
+                    <h2>Lo que debes saber</h2>
+                    <p class="conditions-text-sub">Transparencia total. Sin sorpresas.</p>
+
+                    <div class="condition-item">
+                        <h3>Exclusividad Menuverso</h3>
+                        <p>Tu oferta es única en Menuverso, lo que la hace más valiosa para los suscriptores.</p>
+                    </div>
+                    <div class="condition-item">
+                        <h3>Duración mínima</h3>
+                        <p>El contrato tiene una duración mínima de <strong>3 meses</strong>. Sin permanencia después del periodo inicial.</p>
+                    </div>
+                    <div class="condition-item">
+                        <h3>Asesoramiento personalizado</h3>
+                        <p>Nuestro equipo analiza tu zona y te recomienda la oferta con mayor impacto para tu negocio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 7: How It Works (User Side)      -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-how" id="slide-7">
+        <div class="slide-inner">
+            <div class="how-header">
+                <span class="eyebrow">La experiencia del usuario</span>
+                <h2>¿Cómo funciona para el comensal?</h2>
+                <p class="body-text">Así de sencillo es para tus futuros clientes usar Menuverso.</p>
+            </div>
+            <div class="how-steps">
+                <div class="how-step">
+                    <span class="step-number">01</span>
+                    <div class="step-phone">
+                        <div class="step-phone-screen">🗺️</div>
+                        <div class="step-phone-bar"><span></span></div>
+                    </div>
+                    <h3>Descubre</h3>
+                    <p>Explora espacios gastronómicos únicos en tu ciudad</p>
+                </div>
+                <div class="how-step">
+                    <span class="step-number">02</span>
+                    <div class="step-phone">
+                        <div class="step-phone-screen">🍲</div>
+                        <div class="step-phone-bar"><span></span></div>
+                    </div>
+                    <h3>Selecciona</h3>
+                    <p>Elige la oferta que quieres canjear</p>
+                </div>
+                <div class="how-step">
+                    <span class="step-number">03</span>
+                    <div class="step-phone">
+                        <div class="step-phone-screen">✅</div>
+                        <div class="step-phone-bar"><span></span></div>
+                    </div>
+                    <h3>Canjea</h3>
+                    <p>Muestra la oferta en el restaurante antes de pedir</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 8: Consumer Demand               -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-consumer" id="slide-8">
+        <div class="slide-inner">
+            <div class="consumer-layout">
+                <div class="consumer-visual">
+                    <div class="illustration">🍷🍽️🥂</div>
+                </div>
+                <div class="consumer-text">
+                    <span class="eyebrow">La demanda existe</span>
+                    <h2>Un universo gastronómico a su alcance</h2>
+                    <p class="body-text">
+                        Miles de comensales buscan descubrir restaurantes nuevos con ofertas exclusivas. Menuverso les da acceso ilimitado por una suscripción accesible.
+                    </p>
+                    <div class="price-callout">
+                        <span class="price-desde">desde</span>
+                        <span class="price-amount">6,99 €</span>
+                        <span class="price-period">/ mes</span>
+                    </div>
+                    <div class="plans-mini">
+                        <div class="plan-mini-card">
+                            <div class="plan-label">Mensual</div>
+                            <div class="plan-price">6,99 €/mes</div>
+                            <div class="plan-detail">Cancela cuando quieras</div>
+                        </div>
+                        <div class="plan-mini-card best-value">
+                            <div class="plan-label">Anual único</div>
+                            <div class="plan-price">69,99 €</div>
+                            <div class="plan-detail">Ahorra 14 € al año</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 9: Traction / Social Proof       -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-traction" id="slide-9">
+        <div class="slide-inner">
+            <div class="traction-header">
+                <span class="eyebrow">Tracción</span>
+                <h2>Menuverso en números</h2>
+            </div>
+            <div class="traction-stats">
+                <div class="stat-card">
+                    <div class="stat-number">1.300+</div>
+                    <div class="stat-label">Restaurantes mapeados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Barrios cubiertos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Tipos de oferta</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0 €</div>
+                    <div class="stat-label">Coste para el local</div>
+                </div>
+            </div>
+            <div class="traction-quote">
+                <blockquote>
+                    "Lo que más nos convenció es que no pagamos nada. Solo ofrecemos un 2×1 en hamburguesas que ya es rentable para nosotros, y Menuverso nos trae gente nueva que repite."
+                </blockquote>
+                <cite>
+                    Restaurante asociado en Barcelona
+                    <span class="cite-role"> · Beta partner</span>
+                </cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- SLIDE 10: CTA                          -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="slide slide-cta" id="slide-10">
+        <div class="slide-inner">
+            <div class="cta-layout">
+                <div class="cta-visual">
+                    <div class="illustration">🍽️🤝📱</div>
+                </div>
+                <div class="cta-text">
+                    <span class="eyebrow">Únete ahora</span>
+                    <h2>Empieza a recibir clientes nuevos</h2>
+                    <p class="body-text">
+                        Tanto si tienes un restaurante, una cafetería o un bar, Menuverso es tu canal de captación más sencillo.
+                    </p>
+                    <div class="cta-steps">
+                        <div class="cta-step">
+                            <div class="cta-step-num">1</div>
+                            <div class="cta-step-text">
+                                <h3>Agenda una llamada</h3>
+                                <p>Te explicamos cómo funciona en 10 minutos</p>
+                            </div>
+                        </div>
+                        <div class="cta-step">
+                            <div class="cta-step-num">2</div>
+                            <div class="cta-step-text">
+                                <h3>Elegimos tu oferta</h3>
+                                <p>Analizamos tu zona y recomendamos la mejor opción</p>
+                            </div>
+                        </div>
+                        <div class="cta-step">
+                            <div class="cta-step-num">3</div>
+                            <div class="cta-step-text">
+                                <h3>Te activamos en la app</h3>
+                                <p>Empiezas a recibir comensales desde el primer día</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cta-contact">
+                        <a href="https://wa.me/34600000000" class="cta-btn cta-btn-primary">
+                            💬 WhatsApp
+                        </a>
+                        <a href="mailto:hola@menuverso.com" class="cta-btn cta-btn-secondary">
+                            ✉️ Email
+                        </a>
+                    </div>
+                    <p class="cta-email">
+                        O escríbenos a <a href="mailto:hola@menuverso.com">hola@menuverso.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ─── Slide Navigation System ───
+        const slides = document.querySelectorAll('.slide');
+        const navContainer = document.getElementById('navProgress');
+        const counterEl = document.getElementById('slideCounter');
+        const totalSlides = slides.length;
+
+        // Create nav dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => {
+                slides[i].scrollIntoView({ behavior: 'smooth' });
+            });
+            navContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.nav-dot');
+
+        // Intersection Observer for active slide tracking
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                    const idx = Array.from(slides).indexOf(entry.target);
+                    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+                    counterEl.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        slides.forEach(slide => observer.observe(slide));
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentIdx = Array.from(dots).findIndex(d => d.classList.contains('active'));
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (currentIdx < totalSlides - 1) {
+                    slides[currentIdx + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentIdx > 0) {
+                    slides[currentIdx - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
