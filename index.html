@@ -124,30 +124,37 @@
     .d5 { animation-delay: 0.40s !important; } .d6 { animation-delay: 0.48s !important; }
     .d7 { animation-delay: 0.56s !important; }
 
+    /* ═══════ LANG TOGGLE ═══════ */
+    .lang-toggle { position: fixed; top: 16px; right: 16px; z-index: 200; display: flex; gap: 0; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 8px; overflow: hidden; backdrop-filter: blur(8px); }
+    .lang-btn { padding: 6px 14px; font-family: 'Outfit', sans-serif; font-size: 0.75rem; font-weight: 600; border: none; cursor: pointer; background: transparent; color: var(--text-secondary); transition: all 0.3s; }
+    .lang-btn.active { background: var(--terra); color: white; }
+    .s-cover .lang-toggle .lang-btn:not(.active) { color: rgba(255,255,255,0.7); }
+
     /* ═══════ COVER ═══════ */
-    .s-cover { flex-direction: column; text-align: center; gap: 20px; }
-    .s-cover::before { width: 600px; height: 600px; background: var(--terra); top: -200px; right: -150px; opacity: 0.05; }
-    .s-cover::after { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: var(--olive-muted); bottom: -120px; left: -80px; opacity: 0.6; }
-    .logo-mark { width: 100px; height: 100px; border-radius: 24px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.3); animation: float 4s ease-in-out infinite; }
+    .s-cover { flex-direction: row; text-align: left; gap: 48px; padding: 0 !important; background: none !important; }
+    .s-cover::before { display: none; }
+    .s-cover::after { display: none; }
+    .cover-bg { position: absolute; inset: 0; background: url('assets/cover_bg.jpg') center/cover; filter: brightness(0.35) saturate(1.2); }
+    .cover-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%); }
+    .cover-content { position: relative; z-index: 2; max-width: 520px; padding: 80px 80px; }
+    .logo-mark { width: 80px; height: 80px; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.3); animation: float 4s ease-in-out infinite; }
     .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-    .brand-name { font-family: 'Outfit', sans-serif; font-size: clamp(2.8rem, 5.5vw, 5rem); font-weight: 800; color: var(--text-primary); letter-spacing: -0.03em; }
-    .tagline { font-family: 'Inter', sans-serif; font-size: clamp(1rem, 1.5vw, 1.3rem); color: var(--text-secondary); font-weight: 300; max-width: 580px; }
-    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 100px; color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.82rem; }
-    .pill .ico { color: var(--terra); }
+    .brand-name { font-family: 'Outfit', sans-serif; font-size: clamp(2.8rem, 5.5vw, 4.5rem); font-weight: 800; color: white; letter-spacing: -0.03em; }
+    .brand-name .accent { color: var(--terra-light); }
+    .tagline { font-family: 'Inter', sans-serif; font-size: clamp(1rem, 1.3vw, 1.15rem); color: rgba(255,255,255,0.8); font-weight: 300; max-width: 440px; line-height: 1.7; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: rgba(255,255,255,0.8); font-family: 'Inter', sans-serif; font-size: 0.82rem; backdrop-filter: blur(8px); }
+    .pill .ico { color: var(--terra-light); }
 
     /* ═══════ DISCOVER ═══════ */
-    .s-discover .inner { max-width: 1060px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-    .category-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-    .cat-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 16px; background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 0.85rem;
-      color: var(--text-primary); font-weight: 500; backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-    }
-    .cat-tag:hover { background: var(--glass-hover); transform: translateY(-2px); }
-    .cat-tag .ico { color: var(--terra); }
+    .s-discover .inner { max-width: 1100px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .venue-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; gap: 8px; margin-top: 20px; height: 400px; }
+    .venue-card { position: relative; border-radius: 12px; overflow: hidden; }
+    .venue-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .venue-card:hover img { transform: scale(1.05); }
+    .venue-card .venue-label { position: absolute; bottom: 8px; left: 8px; padding: 4px 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500; color: white; }
+    .venue-card:nth-child(1) { grid-row: 1 / 3; }
+    .venue-card:nth-child(3) { grid-column: 1 / 3; }
     .subscription-summary { display: flex; flex-direction: column; gap: 14px; }
     .price-highlight { padding: 20px; background: var(--terra-glow); border: 1px solid rgba(255,82,119,0.25); border-radius: 14px; text-align: center; }
     .price-highlight .big { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--text-accent); }
@@ -159,13 +166,27 @@
     .flex-note .ico { color: var(--terra); }
 
     /* ═══════ HOW IT WORKS ═══════ */
-    .s-how .inner { max-width: 960px; width: 100%; text-align: center; }
+    .s-how .inner { max-width: 1060px; width: 100%; text-align: center; }
     .s-how .inner > p { margin-bottom: 28px; }
-    .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .step-card { padding: 22px 18px 20px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; text-align: center; }
+    .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step-card { padding: 24px 18px 20px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; text-align: center; display: flex; flex-direction: column; align-items: center; }
     .step-num { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--terra); color: white; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 14px; }
-    .step-ico { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 14px; background: var(--terra-glow); color: var(--terra); margin: 0 auto 10px; }
-    .step-ico svg { width: 24px; height: 24px; }
+    .phone-frame { width: 140px; height: 260px; border-radius: 24px; border: 3px solid #222; background: white; overflow: hidden; margin-bottom: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); position: relative; }
+    .phone-frame::before { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 50px; height: 5px; border-radius: 3px; background: #222; z-index: 5; }
+    .phone-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .phone-frame .phone-screen { width: 100%; height: 100%; padding: 18px 8px 8px; font-family: 'Inter', sans-serif; overflow: hidden; }
+    .phone-screen .ps-header { font-size: 0.5rem; font-weight: 700; color: var(--terra); text-align: center; margin-bottom: 4px; letter-spacing: 0.5px; }
+    .phone-screen .ps-map { height: 50%; background: #e8f4e8; border-radius: 6px; position: relative; margin-bottom: 6px; overflow: hidden; }
+    .phone-screen .ps-map::after { content: '📍'; position: absolute; top: 30%; left: 45%; font-size: 14px; }
+    .phone-screen .ps-map::before { content: '📍'; position: absolute; top: 55%; left: 25%; font-size: 10px; opacity: 0.6; }
+    .phone-screen .ps-card { background: rgba(255,82,119,0.1); border-radius: 6px; padding: 5px 6px; }
+    .phone-screen .ps-card-title { font-size: 0.4rem; font-weight: 700; color: var(--text-primary); }
+    .phone-screen .ps-card-sub { font-size: 0.35rem; color: var(--text-secondary); }
+    .phone-screen .ps-deal { background: var(--terra); color: white; border-radius: 4px; padding: 3px 5px; font-size: 0.35rem; font-weight: 700; margin-top: 3px; display: inline-block; }
+    .phone-screen .ps-hero { height: 35%; background: #ccc; border-radius: 6px; margin-bottom: 4px; overflow: hidden; background: linear-gradient(135deg, #ddd, #bbb); }
+    .phone-screen .ps-btn { background: var(--terra); color: white; border-radius: 10px; padding: 4px; font-size: 0.35rem; font-weight: 700; text-align: center; margin-top: 4px; }
+    .phone-screen .ps-check { font-size: 28px; text-align: center; margin-top: 30px; color: #4CAF50; }
+    .phone-screen .ps-redeemed { font-size: 0.5rem; font-weight: 700; text-align: center; margin-top: 6px; color: var(--text-primary); }
     .step-card h3 { margin-bottom: 6px; }
     .step-card p { font-size: 0.85rem; }
 
@@ -267,12 +288,16 @@
 
   <!-- ═══════ SLIDE 1: COVER ═══════ -->
   <div class="slide s-cover active" data-slide="0">
-    <div class="logo-mark au d1"><img src="assets/logo.png" alt="Menuverso"></div>
-    <div class="brand-name au d2">Menu<span class="accent">verso</span></div>
-    <p class="tagline au d3">Your access to a universe of gastronomy. Discover unique restaurants, bars, and cafés in your city, with exclusive offers designed for you.</p>
-    <div class="pill au d4">
-      <span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3"/><path d="M21 15v7"/></svg></span>
-      Discover · Save · Enjoy
+    <div class="cover-bg"></div>
+    <div class="cover-overlay"></div>
+    <div class="cover-content">
+      <div class="logo-mark au d1"><img src="assets/logo.png" alt="Menuverso"></div>
+      <div class="brand-name au d2" style="margin-top:20px">Menu<span class="accent">verso</span></div>
+      <p class="tagline au d3" style="margin-top:16px" data-en="Your access to a universe of gastronomy. Discover unique restaurants, bars, and cafés in your city, with exclusive offers designed for you." data-es="Tu acceso a un universo gastronómico. Descubre restaurantes, bares y cafés únicos en tu ciudad con ofertas exclusivas diseñadas para ti.">Your access to a universe of gastronomy. Discover unique restaurants, bars, and cafés in your city, with exclusive offers designed for you.</p>
+      <div class="pill au d4" style="margin-top:20px">
+        <span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3"/><path d="M21 15v7"/></svg></span>
+        <span data-en="Discover · Save · Enjoy" data-es="Descubre · Ahorra · Disfruta">Discover · Save · Enjoy</span>
+      </div>
     </div>
   </div>
 
@@ -280,30 +305,30 @@
   <div class="slide s-discover" data-slide="1">
     <div class="inner">
       <div>
-        <div class="label au d1">A NEW WAY TO DINE</div>
-        <h1 class="au d2">Find curated places with access to <span class="accent">exclusive deals</span></h1>
-        <div class="category-tags au d3">
-          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="1" y1="18" x2="23" y2="18"/></svg></span> Bars with spectacular views</div>
-          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="4" rx="2"/><path d="M21 11c0-4.4-4-8-9-8s-9 3.6-9 8"/><path d="M3 15v2c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-2"/></svg></span> Best gourmet burgers</div>
-          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span> Specialty coffee</div>
-          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span> Irresistible temptations</div>
-          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> Local cuisine</div>
+        <div class="label au d1" data-en="A NEW WAY TO DINE" data-es="UNA NUEVA FORMA DE SALIR">A NEW WAY TO DINE</div>
+        <h1 class="au d2"><span data-en="Find curated places with access to" data-es="Descubre lugares seleccionados con acceso a">Find curated places with access to</span> <span class="accent" data-en="exclusive deals" data-es="ofertas exclusivas">exclusive deals</span></h1>
+        <div class="venue-grid au d3">
+          <div class="venue-card"><img src="assets/venues_collage_1.jpg" alt="Rooftop bar"><span class="venue-label" data-en="Bars with views" data-es="Bares con vistas">Bars with views</span></div>
+          <div class="venue-card"><img src="assets/venues_collage_2.jpg" alt="Gourmet burger"><span class="venue-label" data-en="Gourmet burgers" data-es="Hamburguesas gourmet">Gourmet burgers</span></div>
+          <div class="venue-card"><img src="assets/venues_collage_3.jpg" alt="Specialty coffee"><span class="venue-label" data-en="Specialty coffee" data-es="Café de especialidad">Specialty coffee</span></div>
+          <div class="venue-card"><img src="assets/venues_collage_4.jpg" alt="Temptations"><span class="venue-label" data-en="Irresistible temptations" data-es="Tentaciones irresistibles">Irresistible temptations</span></div>
+          <div class="venue-card"><img src="assets/venues_collage_5.jpg" alt="Local cuisine"><span class="venue-label" data-en="Local cuisine" data-es="Cocina local">Local cuisine</span></div>
         </div>
       </div>
       <div class="subscription-summary">
         <div class="price-highlight au d4">
-          <div class="big">7,99 € / month</div>
-          <div class="sub">Access to hundreds of exclusive deals</div>
+          <div class="big" data-en="7,99 € / month" data-es="7,99 € / mes">7,99 € / month</div>
+          <div class="sub" data-en="Access to hundreds of exclusive deals" data-es="Acceso a cientos de ofertas exclusivas">Access to hundreds of exclusive deals</div>
         </div>
         <div class="price-alt au d5">
-          <div class="big">49,99 € / year</div>
-          <div class="sub">Best value — save over 45%</div>
+          <div class="big" data-en="49,99 € / year" data-es="49,99 € / año">49,99 € / year</div>
+          <div class="sub" data-en="Best value — save over 45%" data-es="Mejor precio — ahorra más del 45%">Best value — save over 45%</div>
         </div>
         <div class="flex-note au d6">
-          <span class="ico ico-sm"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> Cancel whenever
+          <span class="ico ico-sm"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> <span data-en="Cancel whenever" data-es="Cancela cuando quieras">Cancel whenever</span>
         </div>
         <div class="flex-note au d6">
-          <span class="ico ico-sm"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> Access to all the deals
+          <span class="ico ico-sm"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> <span data-en="Access to all the deals" data-es="Acceso a todas las ofertas">Access to all the deals</span>
         </div>
       </div>
     </div>
@@ -312,27 +337,49 @@
   <!-- ═══════ SLIDE 3: HOW IT WORKS ═══════ -->
   <div class="slide s-how" data-slide="2">
     <div class="inner">
-      <div class="label au d1">HOW IT WORKS</div>
-      <h1 class="au d2">As simple as discover, choose, and <span class="accent">enjoy</span></h1>
-      <p class="au d3">Show the offer before ordering</p>
+      <div class="label au d1" data-en="HOW IT WORKS" data-es="CÓMO FUNCIONA">HOW IT WORKS</div>
+      <h1 class="au d2"><span data-en="As simple as discover, choose, and" data-es="Tan sencillo como explorar, elegir y">As simple as discover, choose, and</span> <span class="accent" data-en="enjoy" data-es="disfrutar">enjoy</span></h1>
+      <p class="au d3" data-en="Show the offer before ordering" data-es="Muestra la oferta antes de pedir">Show the offer before ordering</p>
       <div class="steps-row">
         <div class="step-card au d3">
           <div class="step-num">1</div>
-          <div class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <h3>Discover</h3>
-          <p>Discover new places next to you</p>
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="ps-header">Menuverso</div>
+              <div class="ps-map" style="height:55%"></div>
+              <div class="ps-card"><div class="ps-card-title">La Terraza BCN</div><div class="ps-card-sub">⭐ 4.7 · Mediterranean</div><div class="ps-deal">2x1 Main Course</div></div>
+            </div>
+          </div>
+          <h3 data-en="Discover" data-es="Descubre">Discover</h3>
+          <p data-en="Discover new places next to you" data-es="Descubre nuevos lugares cerca de ti">Discover new places next to you</p>
         </div>
         <div class="step-card au d4">
           <div class="step-num">2</div>
-          <div class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-          <h3>Select</h3>
-          <p>Select and choose the deal</p>
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <div class="ps-header">Menuverso</div>
+              <div class="ps-hero" style="background:linear-gradient(135deg,#e8d5b7,#c9a87c)"></div>
+              <div class="ps-card-title" style="font-size:0.45rem;margin-top:2px">The Grill & Harvest</div>
+              <div class="ps-card-sub" style="font-size:0.33rem">⭐ 4.5 · 1,248 reviews</div>
+              <div class="ps-deal" style="margin-top:4px">2x1 Main Course</div>
+              <div class="ps-btn" data-en="Redeem Deal" data-es="Canjear Oferta">Redeem Deal</div>
+            </div>
+          </div>
+          <h3 data-en="Select" data-es="Selecciona">Select</h3>
+          <p data-en="Select and choose the deal" data-es="Elige la oferta que quieres canjear">Select and choose the deal</p>
         </div>
         <div class="step-card au d5">
           <div class="step-num">3</div>
-          <div class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-          <h3>Redeem</h3>
-          <p>Redeem and enjoy when you get to the location</p>
+          <div class="phone-frame">
+            <div class="phone-screen" style="background:linear-gradient(180deg,#e8f5e9,#c8e6c9)">
+              <div class="ps-header">Menuverso</div>
+              <div class="ps-check">✓</div>
+              <div class="ps-redeemed" data-en="Deal Redeemed!" data-es="¡Oferta Canjeada!">Deal Redeemed!</div>
+              <div style="text-align:center;font-size:0.35rem;color:var(--text-secondary);margin-top:4px">2x1 Main Course</div>
+            </div>
+          </div>
+          <h3 data-en="Redeem" data-es="Canjea">Redeem</h3>
+          <p data-en="Show and enjoy at the restaurant" data-es="Muestra y disfruta en el restaurante">Show and enjoy at the restaurant</p>
         </div>
       </div>
     </div>
@@ -369,12 +416,12 @@
         </div>
       </div>
       <div class="rest-visual au d3">
-        <img src="assets/hero_food.png" alt="Restaurant">
+        <img src="assets/restaurant_full.jpg" alt="Busy restaurant">
         <div class="float-card">
           <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
           <div>
-            <h4>0 € cost</h4>
-            <p>Free for your restaurant</p>
+            <h4 data-en="0 € cost" data-es="0 € coste">0 € cost</h4>
+            <p data-en="Free for your restaurant" data-es="Gratis para tu restaurante">Free for your restaurant</p>
           </div>
         </div>
       </div>
@@ -516,6 +563,12 @@
 
 </div>
 
+<!-- Language toggle -->
+<div class="lang-toggle" id="langToggle">
+  <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+</div>
+
 <!-- Navigation -->
 <div class="nav-bar" id="navBar"></div>
 <div class="slide-counter" id="slideCounter">01 / 07</div>
@@ -528,6 +581,7 @@
   const counter = document.getElementById('slideCounter');
   const total = slides.length;
   let currentSlide = 0;
+  let currentLang = 'en';
 
   slides.forEach((_, i) => {
     const dot = document.createElement('div');
@@ -552,6 +606,15 @@
     currentSlide = n;
     document.getElementById('prevBtn').style.opacity = n === 0 ? '0.25' : '1';
     document.getElementById('nextBtn').style.opacity = n === total - 1 ? '0.25' : '1';
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (val) el.textContent = val;
+    });
   }
 
   document.addEventListener('keydown', (e) => {
