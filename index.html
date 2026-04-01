@@ -1,815 +1,263 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menuverso — Pitch Deck</title>
+  <title>Menuverso — Sales Deck</title>
+  <meta name="description" content="Menuverso: Your access to a universe of gastronomy. Discover unique restaurants, bars, and cafés with exclusive deals.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* ═══════════════════════════════════════════
-       MENUVERSO BRAND SYSTEM
-       ═══════════════════════════════════════════
-       Palette: Vibrant pastel canvas, terracotta accents
-       Typography: Outfit (display), Inter (body)
-       Surfaces: Glassmorphic cards
-       ═══════════════════════════════════════════ */
-
     :root {
       --olive-deep: #FFFFFF;
       --olive-dark: #FFD1FF;
       --olive: #A0E8FF;
       --olive-light: #FFC4A3;
       --olive-muted: #DAB6FC;
-
       --terra: #FF5277;
       --terra-light: #FF829E;
       --terra-glow: rgba(255, 82, 119, 0.15);
-
       --text-primary: rgba(34, 34, 50, 0.95);
       --text-secondary: rgba(34, 34, 50, 0.70);
       --text-tertiary: rgba(34, 34, 50, 0.45);
       --text-accent: var(--terra);
-
       --glass: rgba(255, 255, 255, 0.65);
       --glass-border: rgba(255, 255, 255, 0.95);
       --glass-hover: rgba(255, 255, 255, 0.85);
-      
       --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       background: var(--olive-deep);
       color: var(--text-primary);
       overflow: hidden;
-      height: 100vh;
-      width: 100vw;
+      height: 100vh; width: 100vw;
     }
+
+    /* ═══════ SVG ICON SYSTEM ═══════ */
+    .ico {
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .ico svg {
+      fill: none; stroke: currentColor;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .ico-sm svg { width: 16px; height: 16px; }
+    .ico-md svg { width: 20px; height: 20px; }
+    .ico-lg svg { width: 24px; height: 24px; }
 
     /* ═══════ SLIDE ENGINE ═══════ */
     .deck { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
-
     .slide {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: translateX(50px);
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: translateX(50px);
       transition: all 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-      pointer-events: none;
-      padding: 32px 80px 52px;
-      overflow: hidden;
+      pointer-events: none; padding: 32px 80px 52px; overflow: hidden;
       background: linear-gradient(155deg, var(--olive-dark) 0%, var(--olive) 55%, var(--olive-muted) 100%);
     }
-
-    .slide.active {
-      opacity: 1;
-      transform: translateX(0);
-      pointer-events: all;
-    }
-
+    .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
     .slide::before {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.04;
-      pointer-events: none;
+      content: ''; position: absolute; border-radius: 50%; opacity: 0.04; pointer-events: none;
     }
-
-    /* Per-slide gradients */
-    .s-cover  { background: linear-gradient(135deg, var(--olive-dark) 0%, var(--olive) 40%, var(--olive-light) 100%); }
-    .s-consumer { background: linear-gradient(160deg, var(--olive-deep) 0%, var(--olive-dark) 45%, var(--olive) 100%); }
-    .s-plans { background: linear-gradient(145deg, var(--olive-dark) 0%, var(--olive) 50%, var(--olive-muted) 100%); }
-    .s-how { background: linear-gradient(170deg, var(--olive-deep) 0%, var(--olive-dark) 50%, var(--olive) 100%); }
+    .s-cover     { background: linear-gradient(135deg, var(--olive-dark) 0%, var(--olive) 40%, var(--olive-light) 100%); }
+    .s-discover  { background: linear-gradient(160deg, var(--olive-deep) 0%, var(--olive-dark) 45%, var(--olive) 100%); }
+    .s-how       { background: linear-gradient(170deg, var(--olive-deep) 0%, var(--olive-dark) 50%, var(--olive) 100%); }
     .s-restaurants { background: linear-gradient(140deg, var(--olive-dark) 0%, var(--olive) 55%, var(--olive-light) 100%); }
-    .s-benefits { background: linear-gradient(165deg, var(--olive-deep) 0%, var(--olive-dark) 40%, var(--olive) 100%); }
-    .s-offers { background: linear-gradient(150deg, var(--olive-dark) 0%, var(--olive) 50%, var(--olive-muted) 100%); }
-    .s-conditions { background: linear-gradient(160deg, var(--olive-deep) 0%, var(--olive-dark) 50%, var(--olive) 100%); }
-    .s-cta { background: linear-gradient(135deg, var(--olive-dark) 0%, var(--olive) 50%, var(--olive-light) 100%); }
-
-    /* Per-slide orbs */
-    .s-consumer::before { width: 500px; height: 500px; background: var(--terra); bottom: -200px; right: -150px; opacity: 0.04; }
-    .s-plans::before { width: 450px; height: 450px; background: var(--terra); top: -180px; left: -100px; opacity: 0.035; }
-    .s-how::before { width: 600px; height: 600px; background: rgba(255,255,255,1); top: -250px; right: -200px; opacity: 0.025; }
-    .s-restaurants::before { width: 400px; height: 400px; background: var(--terra); bottom: -150px; left: -120px; opacity: 0.04; }
-    .s-benefits::before { width: 500px; height: 500px; background: rgba(255,255,255,1); top: -200px; left: -180px; opacity: 0.03; }
-    .s-offers::before { width: 550px; height: 550px; background: var(--terra); bottom: -220px; right: -180px; opacity: 0.035; }
-    .s-conditions::before { width: 450px; height: 450px; background: rgba(255,255,255,1); top: -180px; right: -120px; opacity: 0.03; }
+    .s-customize { background: linear-gradient(165deg, var(--olive-deep) 0%, var(--olive-dark) 40%, var(--olive) 100%); }
+    .s-examples  { background: linear-gradient(150deg, var(--olive-dark) 0%, var(--olive) 50%, var(--olive-muted) 100%); }
+    .s-partners  { background: linear-gradient(135deg, var(--olive-dark) 0%, var(--olive) 50%, var(--olive-light) 100%); }
+    .s-discover::before  { width: 500px; height: 500px; background: var(--terra); bottom: -200px; right: -150px; }
+    .s-how::before       { width: 600px; height: 600px; background: #fff; top: -250px; right: -200px; opacity: 0.025; }
+    .s-restaurants::before { width: 400px; height: 400px; background: var(--terra); bottom: -150px; left: -120px; }
+    .s-customize::before { width: 500px; height: 500px; background: #fff; top: -200px; left: -180px; opacity: 0.03; }
+    .s-examples::before  { width: 550px; height: 550px; background: var(--terra); bottom: -220px; right: -180px; opacity: 0.035; }
+    .s-partners::before  { width: 450px; height: 450px; background: #fff; top: -180px; right: -120px; opacity: 0.03; }
 
     /* ═══════ NAVIGATION ═══════ */
     .nav-bar {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      height: 52px;
-      background: rgba(252, 250, 248, 0.85);
-      backdrop-filter: blur(16px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      z-index: 100;
-      border-top: 1px solid rgba(0,0,0,0.06);
+      position: fixed; bottom: 0; left: 0; right: 0; height: 52px;
+      background: rgba(252, 250, 248, 0.85); backdrop-filter: blur(16px);
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      z-index: 100; border-top: 1px solid rgba(0,0,0,0.06);
     }
-
     .nav-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(0,0,0,0.15);
-      background: transparent;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      width: 8px; height: 8px; border-radius: 50%;
+      border: 1.5px solid rgba(0,0,0,0.15); background: transparent;
+      cursor: pointer; transition: all 0.3s ease;
     }
-
-    .nav-dot.active {
-      background: var(--terra);
-      border-color: var(--terra);
-      transform: scale(1.4);
-    }
-
+    .nav-dot.active { background: var(--terra); border-color: var(--terra); transform: scale(1.4); }
     .nav-dot:hover { border-color: rgba(0,0,0,0.4); }
-
     .slide-counter {
-      position: fixed;
-      bottom: 62px; right: 40px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-tertiary);
-      letter-spacing: 2px;
-      z-index: 100;
+      position: fixed; bottom: 62px; right: 40px;
+      font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 500;
+      color: var(--text-tertiary); letter-spacing: 2px; z-index: 100;
     }
-
     .nav-arrow {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      color: var(--text-secondary);
-      font-size: 18px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 100;
-      backdrop-filter: blur(8px);
+      position: fixed; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      color: var(--text-secondary); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease; z-index: 100; backdrop-filter: blur(8px);
     }
-
-    .nav-arrow:hover {
-      background: var(--glass-hover);
-      color: var(--text-primary);
-    }
-
+    .nav-arrow:hover { background: var(--glass-hover); color: var(--text-primary); }
     .nav-arrow.left { left: 20px; }
     .nav-arrow.right { right: 20px; }
 
-    /* ═══════ TYPOGRAPHY SYSTEM ═══════ */
-    h1 {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2rem, 3.5vw, 3.2rem);
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-    }
-
-    h2 {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: clamp(1.3rem, 2vw, 1.8rem);
-      line-height: 1.25;
-      color: var(--text-primary);
-    }
-
-    h3 {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-      line-height: 1.3;
-      color: var(--text-primary);
-    }
-
-    p {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: clamp(0.9rem, 1.1vw, 1.05rem);
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
-
-    .label {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 0.7rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text-accent);
-      margin-bottom: 16px;
-    }
-
+    /* ═══════ TYPOGRAPHY ═══════ */
+    h1 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: clamp(2rem, 3.5vw, 3.2rem); line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); }
+    h2 { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: clamp(1.3rem, 2vw, 1.8rem); line-height: 1.25; color: var(--text-primary); }
+    h3 { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: clamp(0.95rem, 1.2vw, 1.15rem); line-height: 1.3; color: var(--text-primary); }
+    p { font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(0.9rem, 1.1vw, 1.05rem); line-height: 1.6; color: var(--text-secondary); }
+    .label { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-accent); margin-bottom: 16px; }
     .accent { color: var(--text-accent); }
-
-    /* ═══════ BRAND CARD ═══════ */
-    .card {
-      padding: 24px 22px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow-sm);
-    }
 
     /* ═══════ ANIMATIONS ═══════ */
     .slide.active .au { animation: slideUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
     .au { opacity: 0; transform: translateY(24px); }
     @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
-    .d1 { animation-delay: 0.08s !important; }
-    .d2 { animation-delay: 0.16s !important; }
-    .d3 { animation-delay: 0.24s !important; }
-    .d4 { animation-delay: 0.32s !important; }
-    .d5 { animation-delay: 0.40s !important; }
-    .d6 { animation-delay: 0.48s !important; }
+    .d1 { animation-delay: 0.08s !important; } .d2 { animation-delay: 0.16s !important; }
+    .d3 { animation-delay: 0.24s !important; } .d4 { animation-delay: 0.32s !important; }
+    .d5 { animation-delay: 0.40s !important; } .d6 { animation-delay: 0.48s !important; }
     .d7 { animation-delay: 0.56s !important; }
 
-    /* ═══════ SLIDE-SPECIFIC LAYOUTS ═══════ */
-
-    /* COVER */
-    .s-cover {
-      flex-direction: column;
-      text-align: center;
-      gap: 20px;
-    }
-
-    .s-cover::before {
-      width: 600px; height: 600px;
-      background: var(--terra);
-      top: -200px; right: -150px;
-      opacity: 0.05;
-    }
-
-    .s-cover::after {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: var(--olive-muted);
-      bottom: -120px; left: -80px;
-      opacity: 0.6;
-    }
-
-    .logo-mark {
-      width: 100px; height: 100px;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
-      animation: float 4s ease-in-out infinite;
-    }
-
+    /* ═══════ COVER ═══════ */
+    .s-cover { flex-direction: column; text-align: center; gap: 20px; }
+    .s-cover::before { width: 600px; height: 600px; background: var(--terra); top: -200px; right: -150px; opacity: 0.05; }
+    .s-cover::after { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: var(--olive-muted); bottom: -120px; left: -80px; opacity: 0.6; }
+    .logo-mark { width: 100px; height: 100px; border-radius: 24px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.3); animation: float 4s ease-in-out infinite; }
     .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .brand-name { font-family: 'Outfit', sans-serif; font-size: clamp(2.8rem, 5.5vw, 5rem); font-weight: 800; color: var(--text-primary); letter-spacing: -0.03em; }
+    .tagline { font-family: 'Inter', sans-serif; font-size: clamp(1rem, 1.5vw, 1.3rem); color: var(--text-secondary); font-weight: 300; max-width: 580px; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 100px; color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.82rem; }
+    .pill .ico { color: var(--terra); }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+    /* ═══════ DISCOVER ═══════ */
+    .s-discover .inner { max-width: 1060px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .category-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .cat-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px; background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 0.85rem;
+      color: var(--text-primary); font-weight: 500; backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
     }
+    .cat-tag:hover { background: var(--glass-hover); transform: translateY(-2px); }
+    .cat-tag .ico { color: var(--terra); }
+    .subscription-summary { display: flex; flex-direction: column; gap: 14px; }
+    .price-highlight { padding: 20px; background: var(--terra-glow); border: 1px solid rgba(255,82,119,0.25); border-radius: 14px; text-align: center; }
+    .price-highlight .big { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--text-accent); }
+    .price-highlight .sub { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+    .price-alt { padding: 14px 20px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; text-align: center; }
+    .price-alt .big { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text-primary); }
+    .price-alt .sub { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+    .flex-note { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: rgba(255,255,255,0.4); border-radius: 10px; font-size: 0.82rem; color: var(--text-secondary); }
+    .flex-note .ico { color: var(--terra); }
 
-    .brand-name {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(2.8rem, 5.5vw, 5rem);
-      font-weight: 800;
-      color: var(--text-primary);
-      letter-spacing: -0.03em;
-    }
-
-    .tagline {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(1rem, 1.5vw, 1.3rem);
-      color: var(--text-secondary);
-      font-weight: 300;
-      max-width: 550px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 22px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 100px;
-      color: var(--text-secondary);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-    }
-
-    /* CONSUMER VALUE (split layout) */
-    .s-consumer .inner {
-      max-width: 1060px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 72px;
-      align-items: center;
-    }
-
-    .value-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .value-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 18px 20px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-    }
-
-    .value-card .icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: var(--terra-glow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .value-card h3 { margin-bottom: 3px; font-size: 0.95rem; }
-    .value-card p { font-size: 0.85rem; line-height: 1.45; }
-
-    .price-highlight {
-      padding: 20px;
-      background: var(--terra-glow);
-      border: 1px solid rgba(255, 82, 119, 0.25);
-      border-radius: 14px;
-      text-align: center;
-    }
-
-    .price-highlight .big {
-      font-family: 'Outfit', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--text-accent);
-    }
-
-    .price-highlight .sub {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
-
-    /* PLANS (split layout) */
-    .s-plans .inner {
-      max-width: 1060px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 56px;
-      align-items: center;
-    }
-
-    .plan-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .plan-card {
-      padding: 24px 22px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      backdrop-filter: blur(8px);
-    }
-
-    .plan-card.featured {
-      border-color: var(--terra);
-      background: rgba(255,255,255,0.8);
-    }
-
-    .plan-card h3 { margin-bottom: 4px; }
-    .plan-card .plan-price {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: var(--text-accent);
-      margin-bottom: 6px;
-    }
-    .plan-card p { font-size: 0.85rem; }
-
-    .plan-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      background: var(--terra);
-      color: white;
-      border-radius: 6px;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 0.7rem;
-      margin-bottom: 8px;
-    }
-
-    .phone-img {
-      display: flex;
-      justify-content: center;
-    }
-
-    .phone-img img {
-      max-height: 480px;
-      width: auto;
-      border-radius: 20px;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.35);
-    }
-
-    /* HOW IT WORKS */
-    .s-how .inner {
-      max-width: 960px;
-      width: 100%;
-      text-align: center;
-    }
-
+    /* ═══════ HOW IT WORKS ═══════ */
+    .s-how .inner { max-width: 960px; width: 100%; text-align: center; }
     .s-how .inner > p { margin-bottom: 28px; }
-
-    .steps-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .step-card {
-      padding: 22px 18px 20px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      text-align: center;
-    }
-
-    .step-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      background: var(--terra);
-      color: white;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 14px;
-    }
-
-    .step-icon { font-size: 26px; margin-bottom: 10px; }
+    .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .step-card { padding: 22px 18px 20px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; text-align: center; }
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--terra); color: white; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 14px; }
+    .step-ico { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 14px; background: var(--terra-glow); color: var(--terra); margin: 0 auto 10px; }
+    .step-ico svg { width: 24px; height: 24px; }
     .step-card h3 { margin-bottom: 6px; }
     .step-card p { font-size: 0.85rem; }
 
-    /* FOR RESTAURANTS */
-    .s-restaurants .inner {
-      max-width: 1060px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 56px;
-      align-items: center;
-    }
-
-    .benefit-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 24px;
-    }
-
-    .benefit {
-      padding: 20px 16px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      text-align: center;
-    }
-
-    .benefit .b-icon { font-size: 24px; margin-bottom: 8px; }
+    /* ═══════ FOR RESTAURANTS ═══════ */
+    .s-restaurants .inner { max-width: 1060px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }
+    .benefit { padding: 20px 16px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; text-align: center; }
+    .benefit .b-ico { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; background: var(--terra-glow); color: var(--terra); margin: 0 auto 8px; }
+    .benefit .b-ico svg { width: 20px; height: 20px; }
     .benefit h3 { font-size: 0.9rem; margin-bottom: 4px; }
     .benefit p { font-size: 0.8rem; line-height: 1.4; }
-
     .rest-visual { position: relative; }
-
-    .rest-visual img {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 20px 56px rgba(0,0,0,0.3);
-    }
-
-    .float-card {
-      position: absolute;
-      bottom: -16px; left: -16px;
-      background: var(--glass);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      padding: 16px 20px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .float-card .fc-icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: var(--terra);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .float-card h4 {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text-primary);
-    }
-
+    .rest-visual img { width: 100%; border-radius: 20px; box-shadow: 0 20px 56px rgba(0,0,0,0.3); }
+    .float-card { position: absolute; bottom: -16px; left: -16px; background: var(--glass); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); padding: 16px 20px; border-radius: 14px; display: flex; align-items: center; gap: 12px; }
+    .float-card .fc-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--terra); color: white; display: flex; align-items: center; justify-content: center; }
+    .float-card .fc-icon svg { width: 20px; height: 20px; }
+    .float-card h4 { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.9rem; color: var(--text-primary); }
     .float-card p { font-size: 0.78rem; }
 
-    /* BENEFITS / DETAILED */
-    .s-benefits .inner {
-      max-width: 960px;
-      width: 100%;
-    }
+    /* ═══════ CUSTOMIZATION ═══════ */
+    .s-customize .inner { max-width: 1060px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .custom-list { display: flex; flex-direction: column; gap: 14px; }
+    .custom-card { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; }
+    .custom-card .icon { width: 40px; height: 40px; border-radius: 10px; background: var(--terra-glow); color: var(--terra); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .custom-card .icon svg { width: 20px; height: 20px; }
+    .custom-card h3 { margin-bottom: 3px; font-size: 0.95rem; }
+    .custom-card p { font-size: 0.85rem; line-height: 1.45; }
+    .custom-visual { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+    .custom-visual p { text-align: center; font-size: 0.9rem; }
+    /* Dashboard illustration */
+    .dash-illustration { width: 280px; height: 240px; position: relative; }
+    .dash-card { position: absolute; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; backdrop-filter: blur(8px); box-shadow: var(--shadow-sm); }
+    .dash-card-1 { top: 0; left: 0; width: 200px; padding: 16px; }
+    .dash-card-2 { top: 60px; right: 0; width: 160px; padding: 14px; }
+    .dash-card-3 { bottom: 0; left: 20px; width: 220px; padding: 14px; }
+    .dash-slider { height: 6px; border-radius: 3px; background: rgba(0,0,0,0.06); margin-top: 10px; position: relative; }
+    .dash-slider::after { content: ''; position: absolute; top: -3px; left: 60%; width: 12px; height: 12px; border-radius: 50%; background: var(--terra); box-shadow: 0 2px 8px rgba(255,82,119,0.4); }
+    .dash-slider.s2::after { left: 35%; background: var(--olive); box-shadow: 0 2px 8px rgba(160,232,255,0.4); }
+    .dash-slider.s3::after { left: 75%; background: var(--olive-muted); box-shadow: 0 2px 8px rgba(218,182,252,0.4); }
+    .dash-toggle { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+    .dash-toggle-track { width: 32px; height: 18px; border-radius: 9px; background: var(--terra); position: relative; }
+    .dash-toggle-track::after { content: ''; position: absolute; top: 3px; right: 3px; width: 12px; height: 12px; border-radius: 50%; background: white; }
+    .dash-toggle-label { font-size: 0.7rem; color: var(--text-secondary); font-family: 'Inter', sans-serif; }
+    .dash-bar-group { display: flex; gap: 4px; align-items: flex-end; height: 40px; margin-top: 8px; }
+    .dash-bar { width: 12px; border-radius: 3px 3px 0 0; }
 
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .detail-card {
-      padding: 22px 18px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-    }
-
-    .detail-card .dc-icon { font-size: 24px; margin-bottom: 10px; }
-    .detail-card h3 { font-size: 0.95rem; margin-bottom: 4px; }
-    .detail-card p { font-size: 0.82rem; line-height: 1.45; }
-
-    /* OFFERS TABLE */
-    .s-offers .inner {
-      max-width: 1060px;
-      width: 100%;
-    }
-
-    .offer-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 24px;
-    }
-
-    .offer-type-card {
-      padding: 20px 18px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .offer-type-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--terra);
-    }
-
-    .offer-type-card .ot-icon { font-size: 22px; margin-bottom: 8px; }
+    /* ═══════ EXAMPLES ═══════ */
+    .s-examples .inner { max-width: 1060px; width: 100%; }
+    .offer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .offer-type-card { padding: 20px 18px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; position: relative; overflow: hidden; }
+    .offer-type-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--terra); }
+    .offer-ico { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: var(--terra-glow); color: var(--terra); margin-bottom: 10px; }
+    .offer-ico svg { width: 18px; height: 18px; }
     .offer-type-card h3 { font-size: 0.95rem; margin-bottom: 4px; }
     .offer-type-card p { font-size: 0.82rem; line-height: 1.4; }
-
-    .examples-list {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .example-pill {
-      padding: 12px 14px;
-      background: rgba(255,255,255,0.4);
-      border: 1px solid rgba(255,255,255,0.8);
-      border-radius: 12px;
-      font-size: 0.82rem;
-    }
-
+    .examples-list { margin-top: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .example-pill { padding: 12px 14px; background: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.8); border-radius: 12px; font-size: 0.82rem; }
     .example-pill strong { font-weight: 600; color: var(--text-primary); }
     .example-pill span { font-size: 0.75rem; color: var(--text-secondary); display: block; margin-top: 2px; }
-
-    .mode-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.68rem;
-      font-weight: 600;
-      margin-top: 4px;
-    }
+    .mode-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.68rem; font-weight: 600; margin-top: 4px; }
     .mode-local { background: var(--terra-glow); color: var(--terra); }
     .mode-takeaway { background: rgba(255,193,7,0.15); color: #b8860b; }
 
-    /* CONDITIONS */
-    .s-conditions .inner {
-      max-width: 1060px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 56px;
-      align-items: center;
-    }
-
-    .cond-list { display: flex; flex-direction: column; gap: 14px; }
-
-    .cond-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 18px 20px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-    }
-
-    .cond-card .icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: var(--terra-glow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .cond-card h3 { margin-bottom: 3px; font-size: 0.95rem; }
-    .cond-card p { font-size: 0.85rem; line-height: 1.45; }
-
-    .cond-visual {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .cond-visual .big-emoji { font-size: 5rem; }
-    .cond-visual p { text-align: center; font-size: 0.9rem; }
-
-    /* CTA */
-    .s-cta {
-      flex-direction: column;
-      text-align: center;
-      gap: 24px;
-    }
-
-    .s-cta::before {
-      width: 800px; height: 800px;
-      background: radial-gradient(circle, rgba(255, 82, 119, 0.12) 0%, rgba(255, 82, 119, 0.04) 40%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 1;
-    }
-
-    .s-cta::after {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: var(--olive-light);
-      bottom: -100px; right: -100px;
-      pointer-events: none;
-      opacity: 0.6;
-    }
-
-    .s-cta .logo-mark {
-      width: 72px; height: 72px;
-      border-radius: 18px;
-    }
-
-    .cta-sub {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      max-width: 480px;
-    }
-
-    .cta-paths {
-      display: flex;
-      gap: 20px;
-      margin-top: 4px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta-path {
-      padding: 20px 28px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      text-align: center;
-      min-width: 180px;
-    }
-
-    .cta-path h3 { font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px; }
-    .cta-path .path-price {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 1.4rem;
-      color: var(--text-accent);
-    }
-    .cta-path .path-note { font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px; }
-    .cta-path.free .path-price { color: var(--text-primary); }
-
-    .cta-btns {
-      display: flex;
-      gap: 14px;
-      margin-top: 4px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 28px;
-      border-radius: 100px;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--terra);
-      color: white;
-      box-shadow: 0 8px 24px rgba(255,82,119,0.3);
-    }
-
-    .btn-primary:hover {
-      background: #e0445e;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(255,82,119,0.4);
-    }
-
-    .btn-ghost {
-      background: var(--glass);
-      color: var(--text-primary);
-      border: 1px solid var(--glass-border);
-    }
-
-    .btn-ghost:hover {
-      background: var(--glass-hover);
-      transform: translateY(-2px);
-    }
-
-    .contact-line {
-      color: var(--text-tertiary);
-      font-size: 0.8rem;
-      margin-top: 12px;
-      position: relative;
-      z-index: 1;
-    }
+    /* ═══════ PARTNERSHIP CTA ═══════ */
+    .s-partners { flex-direction: column; text-align: center; gap: 24px; }
+    .s-partners::before { width: 800px; height: 800px; background: radial-gradient(circle, rgba(255,82,119,0.12) 0%, rgba(255,82,119,0.04) 40%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1; }
+    .s-partners::after { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: var(--olive-light); bottom: -100px; right: -100px; pointer-events: none; opacity: 0.6; }
+    .s-partners .logo-mark { width: 72px; height: 72px; border-radius: 18px; }
+    .cta-sub { color: var(--text-secondary); font-size: 1rem; max-width: 480px; }
+    .partner-conditions { display: flex; gap: 20px; margin-top: 4px; position: relative; z-index: 1; }
+    .partner-cond-card { padding: 20px 28px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; text-align: center; min-width: 200px; }
+    .partner-cond-card .pc-ico { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 14px; background: var(--terra-glow); color: var(--terra); margin: 0 auto 10px; }
+    .partner-cond-card .pc-ico svg { width: 24px; height: 24px; }
+    .partner-cond-card h3 { font-size: 0.9rem; margin-bottom: 4px; }
+    .partner-cond-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; }
+    .cta-btns { display: flex; gap: 14px; margin-top: 4px; position: relative; z-index: 1; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 100px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; }
+    .btn .ico svg { width: 16px; height: 16px; stroke-width: 2; }
+    .btn-primary { background: var(--terra); color: white; box-shadow: 0 8px 24px rgba(255,82,119,0.3); }
+    .btn-primary:hover { background: #e0445e; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,82,119,0.4); }
+    .btn-primary .ico { color: white; }
+    .btn-ghost { background: var(--glass); color: var(--text-primary); border: 1px solid var(--glass-border); }
+    .btn-ghost:hover { background: var(--glass-hover); transform: translateY(-2px); }
+    .contact-line { color: var(--text-tertiary); font-size: 0.8rem; margin-top: 12px; position: relative; z-index: 1; }
 
     /* ═══════ RESPONSIVE ═══════ */
     @media (max-width: 900px) {
       .slide { padding: 36px 28px 56px; }
-      .s-consumer .inner,
-      .s-plans .inner,
-      .s-restaurants .inner,
-      .s-conditions .inner { grid-template-columns: 1fr; gap: 32px; }
-      .steps-row { grid-template-columns: 1fr; }
-      .detail-grid { grid-template-columns: 1fr; }
-      .offer-grid { grid-template-columns: 1fr; }
-      .examples-list { grid-template-columns: 1fr; }
-      .benefit-grid { grid-template-columns: 1fr; }
-      .cta-paths { flex-direction: column; align-items: center; }
-      .phone-img img { max-height: 320px; }
+      .s-discover .inner, .s-restaurants .inner, .s-customize .inner { grid-template-columns: 1fr; gap: 32px; }
+      .steps-row, .offer-grid { grid-template-columns: 1fr; }
+      .examples-list, .benefit-grid { grid-template-columns: 1fr; }
+      .partner-conditions { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
@@ -819,309 +267,258 @@
 
   <!-- ═══════ SLIDE 1: COVER ═══════ -->
   <div class="slide s-cover active" data-slide="0">
-    <div class="logo-mark au d1">
-      <img src="assets/logo.png" alt="Menuverso">
-    </div>
+    <div class="logo-mark au d1"><img src="assets/logo.png" alt="Menuverso"></div>
     <div class="brand-name au d2">Menu<span class="accent">verso</span></div>
-    <p class="tagline au d3">Tu acceso a un universo gastronómico. Descubre restaurantes, bares y cafés únicos en tu ciudad con ofertas exclusivas diseñadas para ti.</p>
-    <div class="pill au d4">🍽️&nbsp; Descubre · Ahorra · Disfruta</div>
+    <p class="tagline au d3">Your access to a universe of gastronomy. Discover unique restaurants, bars, and cafés in your city, with exclusive offers designed for you.</p>
+    <div class="pill au d4">
+      <span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3"/><path d="M21 15v7"/></svg></span>
+      Discover · Save · Enjoy
+    </div>
   </div>
 
-  <!-- ═══════ SLIDE 2: UNIVERSE / CONSUMER ═══════ -->
-  <div class="slide s-consumer" data-slide="1">
+  <!-- ═══════ SLIDE 2: DISCOVER ═══════ -->
+  <div class="slide s-discover" data-slide="1">
     <div class="inner">
       <div>
-        <div class="label au d1">UN UNIVERSO GASTRONÓMICO</div>
-        <h1 class="au d2">Una suscripción, <span class="accent">infinitas posibilidades</span></h1>
-        <p class="au d3" style="margin-top: 16px;">Accede a cientos de restaurantes, bares y cafés únicos en tu ciudad por solo 6,99 € al mes.</p>
+        <div class="label au d1">A NEW WAY TO DINE</div>
+        <h1 class="au d2">Find curated places with access to <span class="accent">exclusive deals</span></h1>
+        <div class="category-tags au d3">
+          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="1" y1="18" x2="23" y2="18"/></svg></span> Bars with spectacular views</div>
+          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="4" rx="2"/><path d="M21 11c0-4.4-4-8-9-8s-9 3.6-9 8"/><path d="M3 15v2c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-2"/></svg></span> Best gourmet burgers</div>
+          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span> Specialty coffee</div>
+          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span> Irresistible temptations</div>
+          <div class="cat-tag"><span class="ico ico-sm"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> Local cuisine</div>
+        </div>
       </div>
-      <div class="value-cards">
-        <div class="value-card au d3">
-          <div class="icon">🔍</div>
-          <div>
-            <h3>Descubre</h3>
-            <p>Explora un universo de espacios gastronómicos únicos en tu ciudad</p>
-          </div>
+      <div class="subscription-summary">
+        <div class="price-highlight au d4">
+          <div class="big">7,99 € / month</div>
+          <div class="sub">Access to hundreds of exclusive deals</div>
         </div>
-        <div class="value-card au d4">
-          <div class="icon">💰</div>
-          <div>
-            <h3>Ahorra</h3>
-            <p>Ofertas exclusivas solo para suscriptores</p>
-          </div>
+        <div class="price-alt au d5">
+          <div class="big">49,99 € / year</div>
+          <div class="sub">Best value — save over 45%</div>
         </div>
-        <div class="value-card au d5">
-          <div class="icon">✨</div>
-          <div>
-            <h3>Disfruta</h3>
-            <p>Cada salida, una nueva experiencia por descubrir</p>
-          </div>
+        <div class="flex-note au d6">
+          <span class="ico ico-sm"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> Cancel whenever
         </div>
-        <div class="price-highlight au d6">
-          <div class="big">6,99 € / mes</div>
-          <div class="sub">Acceso a cientos de ofertas exclusivas</div>
+        <div class="flex-note au d6">
+          <span class="ico ico-sm"><svg viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span> Access to all the deals
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════ SLIDE 3: PLANS ═══════ -->
-  <div class="slide s-plans" data-slide="2">
+  <!-- ═══════ SLIDE 3: HOW IT WORKS ═══════ -->
+  <div class="slide s-how" data-slide="2">
     <div class="inner">
-      <div>
-        <div class="label au d1">PLANES DE SUSCRIPCIÓN</div>
-        <h1 class="au d2">Elige tu plan</h1>
-        <p class="au d3" style="margin-top: 16px;">Acceso completo a todas las ofertas exclusivas de la plataforma.</p>
-
-        <div class="plan-cards" style="margin-top: 24px;">
-          <div class="plan-card au d4">
-            <h3>Mensual</h3>
-            <div class="plan-price">7,99 € / mes</div>
-            <p>Flexibilidad total, cancela cuando quieras.</p>
-          </div>
-          <div class="plan-card featured au d5">
-            <div class="plan-badge">MEJOR VALOR</div>
-            <h3>Anual Único</h3>
-            <div class="plan-price">69,99 €</div>
-            <p>Pago único. Acceso completo durante 12 meses, cancela cuando quieras.</p>
-          </div>
-        </div>
-      </div>
-      <div class="phone-img au d3">
-        <img src="assets/app_mockup.png" alt="Menuverso App">
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ SLIDE 4: HOW IT WORKS ═══════ -->
-  <div class="slide s-how" data-slide="3">
-    <div class="inner">
-      <div class="label au d1">¿CÓMO FUNCIONA?</div>
-      <h1 class="au d2">Tan sencillo como explorar, elegir y disfrutar</h1>
-      <p class="au d3">Recuerda mostrar la oferta antes de pedir</p>
-
+      <div class="label au d1">HOW IT WORKS</div>
+      <h1 class="au d2">As simple as discover, choose, and <span class="accent">enjoy</span></h1>
+      <p class="au d3">Show the offer before ordering</p>
       <div class="steps-row">
         <div class="step-card au d3">
           <div class="step-num">1</div>
-          <div class="step-icon">📍</div>
-          <h3>Descubre</h3>
-          <p>Explora espacios gastronómicos únicos en tu ciudad</p>
+          <div class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>Discover</h3>
+          <p>Discover new places next to you</p>
         </div>
         <div class="step-card au d4">
           <div class="step-num">2</div>
-          <div class="step-icon">⚡</div>
-          <h3>Selecciona</h3>
-          <p>Elige la oferta que quieres canjear</p>
+          <div class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <h3>Select</h3>
+          <p>Select and choose the deal</p>
         </div>
         <div class="step-card au d5">
           <div class="step-num">3</div>
-          <div class="step-icon">🎉</div>
-          <h3>Canjea</h3>
-          <p>Muestra la oferta en el restaurante antes de pedir</p>
+          <div class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <h3>Redeem</h3>
+          <p>Redeem and enjoy when you get to the location</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════ SLIDE 5: FOR RESTAURANTS ═══════ -->
-  <div class="slide s-restaurants" data-slide="4">
+  <!-- ═══════ SLIDE 4: FOR RESTAURANTS ═══════ -->
+  <div class="slide s-restaurants" data-slide="3">
     <div class="inner">
       <div>
-        <div class="label au d1">PARA RESTAURANTES, CAFETERÍAS Y BARES</div>
-        <h1 class="au d2">Atrae más clientes, <span class="accent">sin coste</span></h1>
-        <p class="au d3" style="margin-top: 14px;">Unirse a Menuverso es completamente gratuito. Sin complicaciones ni gestión técnica.</p>
+        <div class="label au d1">FOR RESTAURANTS, CAFÉS & BARS</div>
+        <h1 class="au d2">Get more clients, <span class="accent">zero costs</span></h1>
+        <p class="au d3" style="margin-top: 14px;">Menuverso is completely free for restaurants. There are no set-up fees or hidden charges.</p>
         <div class="benefit-grid au d4">
           <div class="benefit">
-            <div class="b-icon">👥</div>
-            <h3>Más clientes</h3>
-            <p>Llega a nuevos comensales activos en tu zona</p>
+            <div class="b-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+            <h3>Zero costs</h3>
+            <p>Completely free. No set-up fees or hidden charges</p>
           </div>
           <div class="benefit">
-            <div class="b-icon">💶</div>
-            <h3>Sin coste</h3>
-            <p>Unirse a Menuverso es completamente gratuito</p>
+            <div class="b-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <h3>Easy to set up</h3>
+            <p>We take care of everything, no extra complexity</p>
           </div>
           <div class="benefit">
-            <div class="b-icon">⚡</div>
-            <h3>Fácil de usar</h3>
-            <p>Sin complicaciones ni gestión técnica</p>
+            <div class="b-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3>Get more clients</h3>
+            <p>Fill up your tables and gain visibility</p>
           </div>
           <div class="benefit">
-            <div class="b-icon">✅</div>
-            <h3>Validación</h3>
-            <p>El usuario valida la oferta directamente en el restaurante</p>
+            <div class="b-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
+            <h3>On your own terms</h3>
+            <p>You choose what deal to promote</p>
           </div>
         </div>
       </div>
       <div class="rest-visual au d3">
-        <img src="assets/hero_food.png" alt="Restaurante">
+        <img src="assets/hero_food.png" alt="Restaurant">
         <div class="float-card">
-          <div class="fc-icon">↗</div>
+          <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
           <div>
-            <h4>0€ coste</h4>
-            <p>Gratis para tu restaurante</p>
+            <h4>0 € cost</h4>
+            <p>Free for your restaurant</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════ SLIDE 6: BENEFITS DETAIL ═══════ -->
-  <div class="slide s-benefits" data-slide="5">
-    <div class="inner">
-      <div class="label au d1">BENEFICIOS PARA TU NEGOCIO</div>
-      <h1 class="au d2">Todo lo que hacemos por ti</h1>
-      <p class="au d3" style="margin-top: 10px; margin-bottom: 8px; max-width: 600px;">Colocamos tu perfil en nuestra app con todos tus datos, website y fotos.</p>
-
-      <div class="detail-grid">
-        <div class="detail-card au d3">
-          <div class="dc-icon">📣</div>
-          <h3>Marketing</h3>
-          <p>Campañas de marketing, ads en redes sociales y trabajamos con influencers</p>
-        </div>
-        <div class="detail-card au d4">
-          <div class="dc-icon">✅</div>
-          <h3>Validación en el restaurante</h3>
-          <p>El usuario validará la oferta directamente en el restaurante antes de pedir</p>
-        </div>
-        <div class="detail-card au d5">
-          <div class="dc-icon">🔧</div>
-          <h3>Sin complicaciones</h3>
-          <p>Completamente gratuito y sin gestión técnica complicada</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ SLIDE 7: OFFER TYPES + EXAMPLES ═══════ -->
-  <div class="slide s-offers" data-slide="6">
-    <div class="inner">
-      <div class="label au d1">TIPOS DE OFERTA</div>
-      <h1 class="au d2">Nos adaptamos a las necesidades de <span class="accent">cada espacio</span></h1>
-      <p class="au d3" style="margin-top: 10px; max-width: 600px;">Elige formato, duración y modalidad</p>
-
-      <div class="offer-grid">
-        <div class="offer-type-card au d3">
-          <div class="ot-icon">🍽️</div>
-          <h3>2×1</h3>
-          <p>Plato principal, hamburguesa o bundle café + postre</p>
-        </div>
-        <div class="offer-type-card au d4">
-          <div class="ot-icon">🎁</div>
-          <h3>Regalo</h3>
-          <p>Helado, mochi o cóctel de la casa gratis con pedido</p>
-        </div>
-        <div class="offer-type-card au d5">
-          <div class="ot-icon">💶</div>
-          <h3>Descuento</h3>
-          <p>10 € de descuento con pedido mínimo de 35 €</p>
-        </div>
-      </div>
-
-      <div class="examples-list">
-        <div class="example-pill au d4">
-          <strong>2×1 Plato Principal</strong>
-          <span>El más barato no se cobra. Excluidos menús mediodía, sushi y parrilla</span>
-          <span class="mode-badge mode-local">En local · 90 días</span>
-        </div>
-        <div class="example-pill au d4">
-          <strong>2×1 Hamburguesa</strong>
-          <span>50% dto en ambas. No acumulable con menús</span>
-          <span class="mode-badge mode-takeaway">Para llevar · 90 días</span>
-        </div>
-        <div class="example-pill au d5">
-          <strong>2×1 Bundle Café + Postre</strong>
-          <span>50% dto en ambos bundles</span>
-          <span class="mode-badge mode-local">En local · 30 días</span>
-        </div>
-        <div class="example-pill au d5">
-          <strong>10 € de Descuento</strong>
-          <span>Pedido mínimo 35 €. No acumulable con Menú Almuerzo</span>
-          <span class="mode-badge mode-local">En local · 30 días</span>
-        </div>
-        <div class="example-pill au d6">
-          <strong>Helado / Mochi Gratis</strong>
-          <span>Con pedido de un plato principal</span>
-          <span class="mode-badge mode-local">En local · 90 días</span>
-        </div>
-        <div class="example-pill au d6">
-          <strong>Cóctel de la Casa Gratis</strong>
-          <span>Con plato principal. No acumulable con Menú Almuerzo</span>
-          <span class="mode-badge mode-local">En local · 30 días</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ SLIDE 8: CONDITIONS ═══════ -->
-  <div class="slide s-conditions" data-slide="7">
+  <!-- ═══════ SLIDE 5: CUSTOMIZATION ═══════ -->
+  <div class="slide s-customize" data-slide="4">
     <div class="inner">
       <div>
-        <div class="label au d1">CONDICIONES DEL ACUERDO</div>
-        <h1 class="au d2">Lo que debes saber</h1>
-        <p class="au d3" style="margin-top: 14px;">Transparencia total. Sin sorpresas.</p>
-        <div class="cond-list" style="margin-top: 20px;">
-          <div class="cond-card au d3">
-            <div class="icon">🤝</div>
-            <div>
-              <h3>Exclusividad</h3>
-              <p>Las ofertas deben ser exclusivas para Menuverso durante la vigencia del contrato</p>
-            </div>
+        <div class="label au d1">TAILORED FLEXIBILITY</div>
+        <h1 class="au d2">We adapt to each <span class="accent">restaurant's needs</span></h1>
+        <p class="au d3" style="margin-top: 14px;">We advise you on the best options.</p>
+        <div class="custom-list" style="margin-top: 20px;">
+          <div class="custom-card au d3">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3"/><path d="M21 15v7"/></svg></div>
+            <div><h3>Type of offer</h3><p>2-for-1, €X discount with a minimum order, free dessert or drink</p></div>
           </div>
-          <div class="cond-card au d4">
-            <div class="icon">📅</div>
-            <div>
-              <h3>Duración mínima</h3>
-              <p>El contrato tiene una duración mínima de <strong>3 meses</strong></p>
-            </div>
+          <div class="custom-card au d4">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div><h3>Offer duration</h3><p>Renewed every 30 days or every 90 days</p></div>
           </div>
-          <div class="cond-card au d5">
-            <div class="icon">💡</div>
-            <div>
-              <h3>Asesoramiento</h3>
-              <p>Te ayudamos a elegir la oferta más adecuada para tu negocio</p>
-            </div>
+          <div class="custom-card au d5">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div><h3>Takeaway or dine-in</h3><p>Choose the modality that fits your business</p></div>
+          </div>
+          <div class="custom-card au d6">
+            <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+            <div><h3>Volume control</h3><p>Number of offers you want to provide per day</p></div>
           </div>
         </div>
       </div>
-      <div class="cond-visual au d4">
-        <div class="big-emoji">🤝</div>
-        <p>Construimos relaciones a largo plazo con cada restaurante asociado</p>
+      <!-- Dashboard illustration built with CSS -->
+      <div class="custom-visual au d4">
+        <div class="dash-illustration">
+          <div class="dash-card dash-card-1">
+            <div style="font-family:'Outfit',sans-serif;font-size:0.7rem;font-weight:600;color:var(--text-tertiary);letter-spacing:1px;text-transform:uppercase;">Offer Type</div>
+            <div class="dash-slider"></div>
+            <div class="dash-slider s2"></div>
+          </div>
+          <div class="dash-card dash-card-2">
+            <div style="font-family:'Outfit',sans-serif;font-size:0.7rem;font-weight:600;color:var(--text-tertiary);letter-spacing:1px;text-transform:uppercase;">Duration</div>
+            <div class="dash-toggle"><div class="dash-toggle-track"></div><span class="dash-toggle-label">90 days</span></div>
+            <div class="dash-toggle" style="margin-top:6px;"><div class="dash-toggle-track" style="background:var(--olive);"></div><span class="dash-toggle-label">Dine-in</span></div>
+          </div>
+          <div class="dash-card dash-card-3">
+            <div style="font-family:'Outfit',sans-serif;font-size:0.7rem;font-weight:600;color:var(--text-tertiary);letter-spacing:1px;text-transform:uppercase;">Daily Volume</div>
+            <div class="dash-bar-group">
+              <div class="dash-bar" style="height:60%;background:var(--terra);opacity:0.3;"></div>
+              <div class="dash-bar" style="height:80%;background:var(--terra);opacity:0.5;"></div>
+              <div class="dash-bar" style="height:100%;background:var(--terra);"></div>
+              <div class="dash-bar" style="height:70%;background:var(--terra);opacity:0.4;"></div>
+              <div class="dash-bar" style="height:45%;background:var(--terra);opacity:0.25;"></div>
+              <div class="dash-bar" style="height:90%;background:var(--terra);opacity:0.6;"></div>
+              <div class="dash-bar" style="height:55%;background:var(--terra);opacity:0.35;"></div>
+            </div>
+          </div>
+        </div>
+        <p>We advise you on the best options for your restaurant</p>
       </div>
     </div>
   </div>
 
-  <!-- ═══════ SLIDE 9: CTA ═══════ -->
-  <div class="slide s-cta" data-slide="8">
-    <div class="logo-mark au d1">
-      <img src="assets/logo.png" alt="Menuverso">
-    </div>
-    <h1 class="au d2">Únete a <span class="accent">Menuverso</span></h1>
-    <p class="cta-sub au d3">Tanto si eres un amante de la gastronomía como si tienes un restaurante, Menuverso es tu plataforma.</p>
-    <div class="cta-paths au d4">
-      <div class="cta-path">
-        <h3>Usuarios</h3>
-        <div class="path-price">6,99 € / mes</div>
-        <div class="path-note">Descubre, ahorra y disfruta</div>
+  <!-- ═══════ SLIDE 6: EXAMPLES ═══════ -->
+  <div class="slide s-examples" data-slide="5">
+    <div class="inner">
+      <div class="label au d1">DEAL EXAMPLES</div>
+      <h1 class="au d2">Real deals for <span class="accent">real restaurants</span></h1>
+      <p class="au d3" style="margin-top: 10px; max-width: 600px;">Here are some examples of deals our partner restaurants offer</p>
+      <div class="offer-grid">
+        <div class="offer-type-card au d3">
+          <div class="offer-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3"/><path d="M21 15v7"/></svg></div>
+          <h3>2-for-1 Main Course</h3>
+          <p>Order 2 main courses; the cheaper one will not be charged. Lunch menus, sushi menus, and grilled specialties excluded.</p>
+          <span class="mode-badge mode-local">Dine-in</span>
+        </div>
+        <div class="offer-type-card au d4">
+          <div class="offer-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="4" rx="2"/><path d="M21 11c0-4.4-4-8-9-8s-9 3.6-9 8"/><path d="M3 15v2c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-2"/></svg></div>
+          <h3>2-for-1 Burger</h3>
+          <p>Order 2 burgers and get 50% off both. Offer must be shown before ordering. Not combinable with menus.</p>
+          <span class="mode-badge mode-takeaway">Takeaway</span>
+        </div>
+        <div class="offer-type-card au d5">
+          <div class="offer-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+          <h3>2-for-1 Coffee–Dessert</h3>
+          <p>Order 2 coffee–dessert bundles and get 50% off both.</p>
+          <span class="mode-badge mode-local">Dine-in</span>
+        </div>
       </div>
-      <div class="cta-path free">
-        <h3>Restaurantes</h3>
-        <div class="path-price">Sin coste</div>
-        <div class="path-note">Atrae clientes nuevos, sin complicaciones</div>
+      <div class="examples-list">
+        <div class="example-pill au d4">
+          <strong>Free Ice Cream / Mochi</strong>
+          <span>Order a main course and receive a free portion of ice cream or mochi</span>
+          <span class="mode-badge mode-local">Dine-in</span>
+        </div>
+        <div class="example-pill au d4">
+          <strong>€10 Discount</strong>
+          <span>€10 off with a minimum order of €35. Not combinable with Business Lunch Menu</span>
+          <span class="mode-badge mode-local">Dine-in</span>
+        </div>
+        <div class="example-pill au d5">
+          <strong>Free House Cocktail</strong>
+          <span>Order a main course and receive a free house cocktail. Not combinable with Business Lunch Menu</span>
+          <span class="mode-badge mode-local">Dine-in</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SLIDE 7: PARTNERSHIP CTA ═══════ -->
+  <div class="slide s-partners" data-slide="6">
+    <div class="logo-mark au d1"><img src="assets/logo.png" alt="Menuverso"></div>
+    <h1 class="au d2">Partner with <span class="accent">Menuverso</span></h1>
+    <p class="cta-sub au d3">Exclusive offers with Menuverso while we have the partnership. Simple conditions, real results.</p>
+    <div class="partner-conditions au d4">
+      <div class="partner-cond-card">
+        <div class="pc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <h3>Exclusivity</h3>
+        <p>Offers must be exclusive to Menuverso during the partnership</p>
+      </div>
+      <div class="partner-cond-card">
+        <div class="pc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <h3>Minimum 3 months</h3>
+        <p>Minimum commitment of 3 months to ensure mutual results</p>
       </div>
     </div>
     <div class="cta-btns au d5">
-      <button class="btn btn-primary" onclick="window.open('mailto:hola@menuverso.com')">📩&nbsp; Contáctanos</button>
-      <button class="btn btn-ghost" onclick="window.open('https://menuverso.com')">🌐&nbsp; Saber más</button>
+      <button class="btn btn-primary" onclick="window.open('mailto:hola@menuverso.com')">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></span>
+        Contact us
+      </button>
+      <button class="btn btn-ghost" onclick="window.open('https://menuverso.com')">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        Learn more
+      </button>
     </div>
-    <p class="contact-line au d6">hola@menuverso.com &nbsp;·&nbsp; Barcelona, España &nbsp;·&nbsp; 2026</p>
+    <p class="contact-line au d6">hola@menuverso.com &nbsp;·&nbsp; Barcelona, Spain &nbsp;·&nbsp; 2026</p>
   </div>
 
 </div>
 
 <!-- Navigation -->
 <div class="nav-bar" id="navBar"></div>
-<div class="slide-counter" id="slideCounter">01 / 09</div>
+<div class="slide-counter" id="slideCounter">01 / 07</div>
 <button class="nav-arrow left" id="prevBtn" onclick="goSlide(currentSlide - 1)">‹</button>
 <button class="nav-arrow right" id="nextBtn" onclick="goSlide(currentSlide + 1)">›</button>
 
@@ -1141,43 +538,25 @@
 
   function goSlide(n) {
     if (n < 0 || n >= total || n === currentSlide) return;
-
     const prev = slides[currentSlide];
     const next = slides[n];
     const dir = n > currentSlide ? 1 : -1;
-
     next.querySelectorAll('.au').forEach(el => {
-      el.style.animation = 'none';
-      el.offsetHeight;
-      el.style.animation = '';
+      el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
     });
-
     prev.classList.remove('active');
     prev.style.transform = dir > 0 ? 'translateX(-50px)' : 'translateX(50px)';
-
     next.classList.add('active');
-
-    document.querySelectorAll('.nav-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === n);
-    });
-
+    document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === n));
     counter.textContent = String(n + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-
     currentSlide = n;
-
     document.getElementById('prevBtn').style.opacity = n === 0 ? '0.25' : '1';
     document.getElementById('nextBtn').style.opacity = n === total - 1 ? '0.25' : '1';
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-      e.preventDefault();
-      goSlide(currentSlide + 1);
-    }
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      e.preventDefault();
-      goSlide(currentSlide - 1);
-    }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goSlide(currentSlide + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goSlide(currentSlide - 1); }
   });
 
   let tx = 0;
