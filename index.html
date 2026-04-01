@@ -148,13 +148,12 @@
 
     /* ═══════ DISCOVER ═══════ */
     .s-discover .inner { max-width: 1100px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .venue-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; gap: 8px; margin-top: 20px; height: 400px; }
-    .venue-card { position: relative; border-radius: 12px; overflow: hidden; }
+    .venue-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; margin-top: 20px; height: 380px; }
+    .venue-card { position: relative; border-radius: 12px; overflow: hidden; min-height: 0; }
     .venue-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .venue-card:hover img { transform: scale(1.05); }
     .venue-card .venue-label { position: absolute; bottom: 8px; left: 8px; padding: 4px 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500; color: white; }
     .venue-card:nth-child(1) { grid-row: 1 / 3; }
-    .venue-card:nth-child(3) { grid-column: 1 / 3; }
     .subscription-summary { display: flex; flex-direction: column; gap: 14px; }
     .price-highlight { padding: 20px; background: var(--terra-glow); border: 1px solid rgba(255,82,119,0.25); border-radius: 14px; text-align: center; }
     .price-highlight .big { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--text-accent); }
@@ -171,22 +170,9 @@
     .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .step-card { padding: 24px 18px 20px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; text-align: center; display: flex; flex-direction: column; align-items: center; }
     .step-num { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: var(--terra); color: white; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 14px; }
-    .phone-frame { width: 140px; height: 260px; border-radius: 24px; border: 3px solid #222; background: white; overflow: hidden; margin-bottom: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); position: relative; }
-    .phone-frame::before { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 50px; height: 5px; border-radius: 3px; background: #222; z-index: 5; }
-    .phone-frame img { width: 100%; height: 100%; object-fit: cover; }
-    .phone-frame .phone-screen { width: 100%; height: 100%; padding: 18px 8px 8px; font-family: 'Inter', sans-serif; overflow: hidden; }
-    .phone-screen .ps-header { font-size: 0.5rem; font-weight: 700; color: var(--terra); text-align: center; margin-bottom: 4px; letter-spacing: 0.5px; }
-    .phone-screen .ps-map { height: 50%; background: #e8f4e8; border-radius: 6px; position: relative; margin-bottom: 6px; overflow: hidden; }
-    .phone-screen .ps-map::after { content: '📍'; position: absolute; top: 30%; left: 45%; font-size: 14px; }
-    .phone-screen .ps-map::before { content: '📍'; position: absolute; top: 55%; left: 25%; font-size: 10px; opacity: 0.6; }
-    .phone-screen .ps-card { background: rgba(255,82,119,0.1); border-radius: 6px; padding: 5px 6px; }
-    .phone-screen .ps-card-title { font-size: 0.4rem; font-weight: 700; color: var(--text-primary); }
-    .phone-screen .ps-card-sub { font-size: 0.35rem; color: var(--text-secondary); }
-    .phone-screen .ps-deal { background: var(--terra); color: white; border-radius: 4px; padding: 3px 5px; font-size: 0.35rem; font-weight: 700; margin-top: 3px; display: inline-block; }
-    .phone-screen .ps-hero { height: 35%; background: #ccc; border-radius: 6px; margin-bottom: 4px; overflow: hidden; background: linear-gradient(135deg, #ddd, #bbb); }
-    .phone-screen .ps-btn { background: var(--terra); color: white; border-radius: 10px; padding: 4px; font-size: 0.35rem; font-weight: 700; text-align: center; margin-top: 4px; }
-    .phone-screen .ps-check { font-size: 28px; text-align: center; margin-top: 30px; color: #4CAF50; }
-    .phone-screen .ps-redeemed { font-size: 0.5rem; font-weight: 700; text-align: center; margin-top: 6px; color: var(--text-primary); }
+    .phone-frame { width: 160px; height: 320px; border-radius: 28px; border: 4px solid #1a1a1a; background: #1a1a1a; overflow: hidden; margin-bottom: 14px; box-shadow: 0 12px 40px rgba(0,0,0,0.2); position: relative; }
+    .phone-frame::before { content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 60px; height: 6px; border-radius: 3px; background: #333; z-index: 5; }
+    .phone-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 24px; }
     .step-card h3 { margin-bottom: 6px; }
     .step-card p { font-size: 0.85rem; }
 
@@ -311,7 +297,7 @@
           <div class="venue-card"><img src="assets/venues_collage_1.jpg" alt="Rooftop bar"><span class="venue-label" data-en="Bars with views" data-es="Bares con vistas">Bars with views</span></div>
           <div class="venue-card"><img src="assets/venues_collage_2.jpg" alt="Gourmet burger"><span class="venue-label" data-en="Gourmet burgers" data-es="Hamburguesas gourmet">Gourmet burgers</span></div>
           <div class="venue-card"><img src="assets/venues_collage_3.jpg" alt="Specialty coffee"><span class="venue-label" data-en="Specialty coffee" data-es="Café de especialidad">Specialty coffee</span></div>
-          <div class="venue-card"><img src="assets/venues_collage_4.jpg" alt="Temptations"><span class="venue-label" data-en="Irresistible temptations" data-es="Tentaciones irresistibles">Irresistible temptations</span></div>
+          <div class="venue-card"><img src="assets/venues_collage_4.jpg" alt="Temptations"><span class="venue-label" data-en="Sweet temptations" data-es="Tentaciones dulces">Sweet temptations</span></div>
           <div class="venue-card"><img src="assets/venues_collage_5.jpg" alt="Local cuisine"><span class="venue-label" data-en="Local cuisine" data-es="Cocina local">Local cuisine</span></div>
         </div>
       </div>
@@ -344,38 +330,30 @@
         <div class="step-card au d3">
           <div class="step-num">1</div>
           <div class="phone-frame">
-            <div class="phone-screen">
-              <div class="ps-header">Menuverso</div>
-              <div class="ps-map" style="height:55%"></div>
-              <div class="ps-card"><div class="ps-card-title">La Terraza BCN</div><div class="ps-card-sub">⭐ 4.7 · Mediterranean</div><div class="ps-deal">2x1 Main Course</div></div>
-            </div>
+            <img src="assets/phone_map.jpg" alt="Map view showing restaurants">
           </div>
           <h3 data-en="Discover" data-es="Descubre">Discover</h3>
-          <p data-en="Discover new places next to you" data-es="Descubre nuevos lugares cerca de ti">Discover new places next to you</p>
+          <p data-en="Find new places near you on the map" data-es="Descubre nuevos lugares cerca de ti en el mapa">Find new places near you on the map</p>
         </div>
         <div class="step-card au d4">
           <div class="step-num">2</div>
           <div class="phone-frame">
-            <div class="phone-screen">
-              <div class="ps-header">Menuverso</div>
-              <div class="ps-hero" style="background:linear-gradient(135deg,#e8d5b7,#c9a87c)"></div>
-              <div class="ps-card-title" style="font-size:0.45rem;margin-top:2px">The Grill & Harvest</div>
-              <div class="ps-card-sub" style="font-size:0.33rem">⭐ 4.5 · 1,248 reviews</div>
-              <div class="ps-deal" style="margin-top:4px">2x1 Main Course</div>
-              <div class="ps-btn" data-en="Redeem Deal" data-es="Canjear Oferta">Redeem Deal</div>
-            </div>
+            <img src="assets/phone_food.jpg" alt="Restaurant profile with deal">
           </div>
           <h3 data-en="Select" data-es="Selecciona">Select</h3>
-          <p data-en="Select and choose the deal" data-es="Elige la oferta que quieres canjear">Select and choose the deal</p>
+          <p data-en="Choose the restaurant and the deal" data-es="Elige el restaurante y la oferta">Choose the restaurant and the deal</p>
         </div>
         <div class="step-card au d5">
           <div class="step-num">3</div>
-          <div class="phone-frame">
-            <div class="phone-screen" style="background:linear-gradient(180deg,#e8f5e9,#c8e6c9)">
-              <div class="ps-header">Menuverso</div>
-              <div class="ps-check">✓</div>
-              <div class="ps-redeemed" data-en="Deal Redeemed!" data-es="¡Oferta Canjeada!">Deal Redeemed!</div>
-              <div style="text-align:center;font-size:0.35rem;color:var(--text-secondary);margin-top:4px">2x1 Main Course</div>
+          <div class="phone-frame" style="background:linear-gradient(180deg,#e8f5e9 0%,#c8e6c9 100%)">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:16px;">
+              <div style="width:48px;height:48px;border-radius:50%;background:#4CAF50;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-weight:bold;box-shadow:0 4px 16px rgba(76,175,80,0.4);">✓</div>
+              <div style="font-family:'Outfit',sans-serif;font-size:0.75rem;font-weight:700;color:#222;margin-top:10px;" data-en="Deal Redeemed!" data-es="¡Oferta Canjeada!">Deal Redeemed!</div>
+              <div style="background:white;border-radius:8px;padding:8px 12px;margin-top:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                <div style="font-size:0.55rem;font-weight:700;color:#222;">2x1 Main Course</div>
+                <div style="font-size:0.4rem;color:#666;margin-top:2px;">The Grill & Harvest</div>
+              </div>
+              <div style="font-size:0.35rem;color:#666;margin-top:6px;">Menuverso</div>
             </div>
           </div>
           <h3 data-en="Redeem" data-es="Canjea">Redeem</h3>
